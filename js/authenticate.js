@@ -141,10 +141,16 @@ function successfulLogin(){
 	console.log(curPassword);
 	if (sha256(curPassword) == secure_password){
 		var secureJS = document.createElement('script');
-		secureJS.setAttribute('src', 'js/masterControls.js');
+
+		secureJS.onload = function(){
+			document.getElementById('passwordContainer').classList.add('hide');
+			bootSPIKE();
+		}
+
+		//load in secure code on boot
+		secureJS.src = 'js/masterControls.js';
 		document.body.appendChild(secureJS);
+
 		
-		document.getElementById('passwordContainer').classList.add('hide');
-		bootSPIKE();
 	}
 }
