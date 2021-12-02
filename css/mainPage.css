@@ -1,0 +1,61 @@
+.hide{
+    display: none;
+}
+
+.inline{
+    display: inline-block;
+    padding-top: 20px;
+    padding-right: 80px;
+    padding-bottom: 20px;
+    padding-left: 80px;
+}
+
+.center{
+    text-align: center;
+}
+
+.centerButtons{
+    padding-top: 10px;
+    padding-right: 100px;
+    padding-bottom: 20px;
+    padding-left: 100px;
+
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+
+.formBox{
+    width:200px;
+    border-width: 1px;
+    border-radius: 8px;
+    border-style: solid;
+    border-color:green;
+
+    padding-top: 10px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.boxed{
+    width:150px;
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: solid;
+
+    padding-top: 10px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+}
+

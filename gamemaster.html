@@ -1,0 +1,81 @@
+<head>
+    <script src="https://cdn.jsdelivr.net/gh/tuftsceeo/SPIKE-Web-Interface@1.0/cdn/ServiceDock.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel = "stylesheet" href = "css/mainPage.css">
+
+   
+</head>
+
+<body>
+    <service-airtable id = "service_airtable" hidden></service-airtable>
+
+    <iframe name = "loginForm" style = "display: none"></iframe>
+
+    <div id = "title">
+        <h1 align = center>Tic-Tac-Throw</h1>
+        <h3 align = center>Gamemaster Controls</h3>
+    </div>
+
+    <div align = center id = "passwordContainer">
+        <h3>This page is password protected. Please enter the correct password to continue:</h3>
+        <form  target = "loginForm">
+            <label for="password" id = "passwordLabel" class = "formLabel" style = >Password:</label><br><br>
+            <input type="password" id="passwordInput" name="password" value="" class = "text-input"><br><br>
+            <button type = 'button' id = "passwordSubmit" onclick = 'submitPassword()'>Submit</button>
+        </form>
+    </div>
+
+
+    
+    <div id = "logon" class = "center">
+        
+        
+    </div>
+
+    <div id = "controls" class = "center" hidden>
+        <div align = center id = "spikeBox" class = "boxed">
+
+        </div>
+        <br><br>
+        <div class = "center_buttons" >
+            <form>
+                <div class = 'formBox' style ="display: inline-block;">
+                    <label for="angle">Enter an Angle (-90 to 90)</label>
+                    <input type="number" id="fname" name="angle" value="0" width="48">
+                </div>
+                <div class = 'formBox' style="display: inline-block;">
+                    <label for="power">Power (0 to 100)</label>
+                <input type="number" id="lname" name="power" value="0" width="48">
+                </div>
+                
+                
+            </form> 
+        </div>
+
+        <button id = "execute_button" type = "button" onclick = "controlRobot()">Execute</button> <br><br><br>
+
+        <div id = "programControl" class = "center_buttons">
+            <button type = "button" id = "run_code" onclick="runCode()">Run Program</button>
+            <button type = "button" id = "stop_code" onclick="stopCode()">Stop Program</button>
+
+        </div>
+
+        <br><br>
+
+        <div id = "gameControl" class = "center_buttons">
+            <button type = "button" id = "startGame" onclick="startGame()">Start Game</button>
+            <button type = "button" id = "stopGame" onclick="stopCode()">Stop Game</button>
+
+        </div>
+    </div>
+    
+
+
+    
+    <script src = "js/cookies.js"></script>
+    <script src = "js/pythonCode/arm.js"></script>
+    <script src = "js/authenticate.js"></script>
+    <script src = "js/masterControls.js"></script>
+    
+</body>
