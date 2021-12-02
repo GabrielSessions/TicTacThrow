@@ -1,6 +1,7 @@
 var numAttempts = 3;
 const secure_password = '2d5a0345254102ae731207917fd24d2e8b7f7ebbfc0f3032776d52548b445cc9';
 var curPassword = '';
+console.log(getCookie('password'))
 try{
 	curPassword = getCookie('password');
 }
