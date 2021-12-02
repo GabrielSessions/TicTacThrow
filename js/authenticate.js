@@ -1,3 +1,6 @@
+
+//Set up password check
+//If a cookie with a valid password is found, the user is automatically signed in
 var numAttempts = 3;
 const secure_password = '2d5a0345254102ae731207917fd24d2e8b7f7ebbfc0f3032776d52548b445cc9';
 var curPassword = '';
@@ -107,7 +110,7 @@ function sha256(ascii) {
 	return result;
 };
 
-
+//Checks if entered password is the correct password
 function submitPassword(){
 	let inputPass = document.getElementById('passwordInput').value;
 	if (sha256(inputPass) == secure_password){
@@ -133,9 +136,14 @@ function submitPassword(){
 	}
 }
 
+//When login is successful, the SPIKE prime object is initialized
 function successfulLogin(){
 	console.log(curPassword);
 	if (sha256(curPassword) == secure_password){
+		var secureJS = document.createElement('script');
+		secureJS.setAttribute('src', 'js/masterControls.js');
+		document.body.appendChild(secureJS);
+		
 		document.getElementById('passwordContainer').classList.add('hide');
 		bootSPIKE();
 	}

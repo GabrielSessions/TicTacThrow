@@ -1,3 +1,5 @@
+//Airtable and SPIKE Prime Setup
+
 var AirtableElement = document.getElementById("service_airtable");
 var myAirtable = AirtableElement.getService();
 var spikeService;
@@ -8,6 +10,7 @@ AirtableElement.setAttribute("baseid", "app" + "IsR76sJVPHgo60");
 AirtableElement.setAttribute("tablename", "Shooter");
 AirtableElement.init();
 
+//Initializes SPIKE Prime and unhides all secure content
 function bootSPIKE (){
     spikeService = document.createElement("service-spike");
     spikeService.innerHTML = `<service-spike align = center id = "service_spike"></service-spike>`;
