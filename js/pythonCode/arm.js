@@ -8,17 +8,19 @@ angle = Motor('A')
 power = Motor('B')
 
 # Values to set (Angle and speed)
-speedVal = CLOUD[Angle]
-angleVal = CLOUD[Power]
+#speedVal = CLOUD[Angle]
+#angleVal = CLOUD[Power]
+speedVal = 30
+angleVal = 45
 
 # Set up
 angle.run_to_position(0, 'shortest path', 50)
-power.run_to_position(0, 'shortest path', 100)
+power.run_to_position(0, 'shortest path', 50)
 
 # Launch
-angle.run_to_position(0, 'shortest path', angleVal)
+angle.run_to_position(angleVal, 'shortest path', 10)
 power.run_to_position(90, 'clockwise', speedVal)
 
 # Reset
 angle.run_to_position(0, 'shortest path', 50)
-power.run_to_position(0, 'shortest path', 100)`;
+power.run_to_position(0, 'shortest path', 50)`;

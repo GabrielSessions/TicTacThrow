@@ -19,6 +19,8 @@ AirtableElement2.setAttribute("tablename", "playerID");
 AirtableElement2.init();
 
 var currentIDList = '';
+var playersList = [];
+var serviceSPIKE;
 
 //keeps track of who's in the lobby
 
@@ -30,9 +32,11 @@ function bootSPIKE (){
     spikeService.innerHTML = `<service-spike align = center id = "service_spike"></service-spike>`;
     document.getElementById('spikeBox').append(spikeService);
 
-    var serviceSPIKE = document.getElementById("service_spike").getService();
+    serviceSPIKE = document.getElementById("service_spike").getService();
     serviceSPIKE.executeAfterInit(async function() {
-        spikeService.writeProgram("arm.py", armCode, 0);
+        serviceSPIKE.writeProgram("arm.py", armCode, 0);
+
+        
         
     })
 
@@ -81,7 +85,7 @@ function stopCode(){
 function getNames(){
    
     var gatherNamesInterval = setInterval(() => {
-        console.log(myAirtable.getEntryValue('Lobby'));
+        //console.log(myAirtable.getEntryValue('Lobby'));
         var listOfIDs = myAirtable.getEntryValue('Lobby');
         if (listOfIDs != currentIDList){
             updateNameList(currentIDList, listOfIDs);
@@ -152,13 +156,13 @@ function addNewTableRow(userID){
 //Player ID is entered into open spot
 function addToGame (playerID){
     if (myAirtable.getEntryValue('Player 1') == 'null'){
-        myAirtable.setEntryValueStrict('Player 1', playerID);
+        myAirtable.setEntryValueNotStrict('Player 1', playerID);
     }
     else if(myAirtable.getEntryValue('Player 2') == 'null'){
-        myAirtable.setEntryValueStrict('Player 2', playerID);
+        myAirtable.setEntryValueNotStrict('Player 2', playerID);
     }
     else if(myAirtable.getEntryValue('Player 3') == 'null'){
-        myAirtable.setEntryValueStrict('Player 3', playerID);
+        myAirtable.setEntryValueNotStrict('Player 3', playerID);
     }
     else{
         alert('There are no open spots left');
