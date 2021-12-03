@@ -1,4 +1,16 @@
 var username = '';
+var playerID = Date.now();
+var playerNumber = 0;
+
+//airtable set up
+
+var AirtableElement = document.getElementById("service_airtable");
+var myAirtable = AirtableElement.getService();
+
+AirtableElement.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
+AirtableElement.setAttribute("baseid", "app" + "IsR76sJVPHgo60");
+AirtableElement.setAttribute("tablename", "Shooter");
+AirtableElement.init();
 
 //loading screen when waiting to join game
 function loading(){
@@ -9,5 +21,21 @@ function loading(){
     document.getElementById('loader').removeAttribute ('hidden');
     document.getElementById('subheadLoad').removeAttribute ('hidden');
 
+    console.log(myAirtable.getEntriesInfo());
 
+    addNameToLobby();
+}
+
+function addNameToLobby(){
+    var oldList = myAirtable.getEntryValue('LobbyList');
+    var newList = '';
+
+    if (oldList == "null"){
+        newList = playerID + ",";
+    }
+    else{
+        newList = oldList + playerID + ",";
+    }
+    
+    myAirtable.setEntryValueStrict('LobbyList', newList);
 }
