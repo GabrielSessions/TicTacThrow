@@ -187,7 +187,7 @@ function resetLobby(){
         }
 
         catch{
-            console.log("an ID not found error occured")
+            console.log("an ID not found error occured");
         }
 
         
