@@ -51,9 +51,10 @@ function bootSPIKE (){
     setTimeout(() => {
         getNames();
 
-        playersList.push(myAirtable.getEntryValue('Player 1'));
-        playersList.push(myAirtable.getEntryValue('Player 2'));
-        playersList.push(myAirtable.getEntryValue('Player 3'));
+        console.log(myAirtable.getEntryValue('Player1'));
+        playersList.push(myAirtable.getEntryValue('Player1'));
+        playersList.push(myAirtable.getEntryValue('Player2'));
+        playersList.push(myAirtable.getEntryValue('Player3'));
     }, 200);
     
     
@@ -160,14 +161,18 @@ function addNewTableRow(userID){
 //Adds the selected player to a game if there is avaliable space
 //Player ID is entered into open spot
 function addToGame (playerID){
-    if (myAirtable.getEntryValue('Player 1') == 'null'){
-        myAirtable.setEntryValueNotStrict('Player 1', playerID);
+    console.log(playerID);
+    if (myAirtable.getEntryValue('Player1') == 0 && myAirtable.getEntryValue('Player1') != playerID){
+        myAirtable.setEntryValueNotStrict('Player1', playerID);
+        playersList[0] = playerID;
     }
-    else if(myAirtable.getEntryValue('Player 2') == 'null'){
-        myAirtable.setEntryValueNotStrict('Player 2', playerID);
+    else if(myAirtable.getEntryValue('Player2') == 0 && myAirtable.getEntryValue('Player2') != playerID){
+        myAirtable.setEntryValueNotStrict('Player2', playerID);
+        playersList[1] = playerID;
     }
-    else if(myAirtable.getEntryValue('Player 3') == 'null'){
-        myAirtable.setEntryValueNotStrict('Player 3', playerID);
+    else if(myAirtable.getEntryValue('Player3') == 0 && myAirtable.getEntryValue('Player3') != playerID){
+        myAirtable.setEntryValueNotStrict('Player3', playerID);
+        playersList[2] = playerID;
     }
     else{
         alert('There are no open spots left');
@@ -181,12 +186,17 @@ function kick(playerID){
     
 }
 
-//Removes all players from the lobby 
+//Removes all players from the lobby and all entries from playerID table
 function resetLobby(){
     var listOfIDs = myAirtable.getEntryValue('Lobby');
     let arrayOfIDs = listOfIDs.split(',');
     arrayOfIDs.pop();
+    console.log(myAirtable.getEntryValue('Player1'));
     myAirtable.setEntryValueStrict('Lobby', 'null');
+    myAirtable.setEntryValueStrict('Player1', 0);
+    myAirtable.setEntryValueStrict('Player2', 0);
+    myAirtable.setEntryValueStrict('Player3', 0);
+    myAirtable.setEntryValueStrict('Turn', 0);
 
     for (let i = 0; i < arrayOfIDs.length; i++){
         try{
@@ -199,9 +209,22 @@ function resetLobby(){
         }
 
         
+
+        
     }
 
-    myAirtable.setEntryValueStrict('Player 1', 'null');
-    myAirtable.setEntryValueStrict('Player 2', 'null');
-    myAirtable.setEntryValueStrict('Player 3', 'null');
+}
+
+
+//Changes start variable to true and picks a random starting player
+function startGame(){
+    console.log(myAirtable.getEntryValue('GameStarted'));
+    myAirtable.setEntryValueStrict('GameStarted', true);
+
+    //random starting 1st player
+    var turnNum = Math.floor(Math.random()*3 + 1);
+    myAirtable.setEntryValueStrict('Turn', turnNum);
+
+    //Delete Lobby 
+    document.getElementById('controlPlayers').hidden = true;
 }

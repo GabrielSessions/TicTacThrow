@@ -58,5 +58,5 @@ function checkIfKicked(){
         if (myAirtable.getEntryValue('Lobby').indexOf(playerID) == -1){
             window.location.href = "players.html"
         }
-    }, 500);
+    }, 2000);
 }
