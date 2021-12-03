@@ -100,17 +100,18 @@ function updateNameList(oldIDList, newIDList){
     let newListArray = newIDList.split(',');
     let lenDiffs = newListArray.length - oldListArray.length;
 
+    //last entry is an empty String ans is removed
     oldListArray.pop();
     newListArray.pop();
 
-    console.log(oldListArray);
-    console.log(newListArray);
+    //console.log(oldListArray);
+    //console.log(newListArray);
     
     
     for(let i = oldListArray.length; i < newListArray.length; i++){
         let curValue = newListArray[i];
 
-        console.log(typeof(curValue));
+        //console.log(typeof(curValue));
 
         /*
         if (typeof(curValue) != Number){
@@ -125,20 +126,50 @@ function updateNameList(oldIDList, newIDList){
     
 }
 
+//Adds a row to the lobby chart with username and ID
+function addNewTableRow(userID){    
+    
 
-function addNewTableRow(userID){
     let newTableRow = document.createElement('tr');
+    newTableRow.setAttribute('id', "row" + userID);
 
     let newCol1 = document.createElement('th');
     newCol1.innerHTML = myAirtable2.getEntryValue(userID);
     let newCol2 = document.createElement('th'); 
     newCol2.innerHTML = userID;
     let newCol3 = document.createElement('th');
-    newCol3.innerHTML = "placeholder";
+    newCol3.innerHTML = '<button type = "button" onclick = "addToGame('+ userID +')">Add to Game</button> <br><br>';
+    newCol3.innerHTML += '<button type = "button" onclick = "kick('+ userID +')">Kick from Lobby</button>';
 
     newTableRow.append(newCol1);
     newTableRow.append(newCol2);
     newTableRow.append(newCol3);
 
     document.getElementById('playerTable').append(newTableRow);
+}
+
+//Adds the selected player to a game if there is avaliable space
+//Player ID is entered into open spot
+function addToGame (playerID){
+    if (myAirtable.getEntryValue('Player 1') == 'null'){
+        myAirtable.setEntryValueStrict('Player 1', playerID);
+    }
+    else if(myAirtable.getEntryValue('Player 2') == 'null'){
+        myAirtable.setEntryValueStrict('Player 2', playerID);
+    }
+    else if(myAirtable.getEntryValue('Player 3') == 'null'){
+        myAirtable.setEntryValueStrict('Player 3', playerID);
+    }
+    else{
+        alert('There are no open spots left');
+    }
+
+}
+
+function kick(playerID){
+    var oldList = myAirtable.getEntryValue('Lobby');
+    myAirtable.setEntryValueStrict('Lobby', oldList.replace(playerID, 'kicked'));
+    document.getElementById("row" + playerID).remove();
+
+    
 }
