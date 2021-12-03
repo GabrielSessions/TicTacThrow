@@ -47,8 +47,13 @@ function bootSPIKE (){
     document.getElementById('controls').hidden = false;
 
     //Wait for airtable to fully load
+    //Gets names currently in lobby and marked as players
     setTimeout(() => {
         getNames();
+
+        playersList.push(myAirtable.getEntryValue('Player 1'));
+        playersList.push(myAirtable.getEntryValue('Player 2'));
+        playersList.push(myAirtable.getEntryValue('Player 3'));
     }, 200);
     
     
@@ -173,7 +178,6 @@ function addToGame (playerID){
 function kick(playerID){
     var oldList = myAirtable.getEntryValue('Lobby');
     document.getElementById("row" + playerID).remove();
-
     
 }
 
@@ -196,4 +200,8 @@ function resetLobby(){
 
         
     }
+
+    myAirtable.setEntryValueStrict('Player 1', 'null');
+    myAirtable.setEntryValueStrict('Player 2', 'null');
+    myAirtable.setEntryValueStrict('Player 3', 'null');
 }

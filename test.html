@@ -1,0 +1,41 @@
+<!-- Sample Code made for "Dunkin'" project, do not use for Tic Tac Throw-->
+
+<!DOCTYPE html>
+
+<head>
+    <title>My Game Name!</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/gh/tuftsceeo/SPIKE-Web-Interface@1.0/cdn/ServiceDock.min.js"></script>
+    <div align = center>
+        <button id = "button1" type = "button" onclick="func()">Walk</button><br>
+        <button id = "button2" type = "button" onclick="func2()" hidden>Talk</button><br>
+    </div>
+    
+    <service-spike id = "service_spike"></service-spike>
+</body>
+
+<script>
+    setTimeout(() => {
+        var serviceSPIKE = document.getElementById("service_spike").getService();
+    
+        serviceSPIKE.executeAfterInit(async function() {
+        // write code here
+        })
+    }, 100);
+    
+
+    //serviceSPIKE.init();
+
+    function func(){
+        document.getElementById('button2').hidden = false;
+        document.getElementById('button1').remove();
+
+        //serviceSPIKE.executeProgram(0);
+
+        setTimeout(() => {
+            console.log('hello world')
+        }, 1000);
+    }
+</script>
