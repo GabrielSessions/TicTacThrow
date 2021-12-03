@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <head>
     <script src="https://cdn.jsdelivr.net/gh/tuftsceeo/SPIKE-Web-Interface@1.0/cdn/ServiceDock.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -53,7 +55,7 @@
                 
             </form> 
         </div>
-
+<br><br>
         <button id = "execute_button" type = "button" onclick = "controlRobot()">Execute</button> <br><br><br>
 
         <div id = "programControl" class = "center_buttons">
@@ -68,6 +70,18 @@
             <button type = "button" id = "startGame" onclick="startGame()">Start Game</button>
             <button type = "button" id = "stopGame" onclick="stopCode()">Stop Game</button>
 
+        </div>
+
+        <div id = "controlPlayers">
+            <h3>Players in Lobby</h3>
+            <table id = "playerTable">
+                <tr>
+                    <th>Username</th>
+                    <th>Player ID</th>
+                    <th>Actions</th>
+                </tr>
+
+            </table>
         </div>
     </div>
     

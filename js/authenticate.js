@@ -138,7 +138,6 @@ function submitPassword(){
 
 //When login is successful, the SPIKE prime object is initialized
 function successfulLogin(){
-	console.log(curPassword);
 	if (sha256(curPassword) == secure_password){
 		var secureJS = document.createElement('script');
 

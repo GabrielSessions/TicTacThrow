@@ -1,5 +1,5 @@
 var username = '';
-var playerID = Date.now();
+var playerID = String(Date.now());
 var playerNumber = 0;
 
 //airtable set up
@@ -13,11 +13,11 @@ AirtableElement.setAttribute("tablename", "Shooter");
 AirtableElement.init();
 
 var AirtableElement2 = document.getElementById("service_airtable2");
-var myAirtable2 = AirtableElement.getService();
+var myAirtable2 = AirtableElement2.getService();
 
 AirtableElement2.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
 AirtableElement2.setAttribute("baseid", "app" + "IsR76sJVPHgo60");
-AirtableElement2.setAttribute("tablename", "PlayerIDs");
+AirtableElement2.setAttribute("tablename", "playerID");
 AirtableElement2.init();
 
 
@@ -25,18 +25,18 @@ AirtableElement2.init();
 function loading(){
     username = document.getElementById('fname').value;
 
+    console.log(username);
+
     document.getElementById('nameForm').remove();
 
     document.getElementById('loader').removeAttribute ('hidden');
     document.getElementById('subheadLoad').removeAttribute ('hidden');
 
-    console.log(myAirtable.getEntriesInfo());
-
     addNameToLobby();
 }
 
 function addNameToLobby(){
-    var oldList = myAirtable.getEntryValue('LobbyList');
+    var oldList = myAirtable.getEntryValue('Lobby');
     var newList = '';
 
     if (oldList == "null"){
@@ -46,5 +46,7 @@ function addNameToLobby(){
         newList = oldList + playerID + ",";
     }
     
-    myAirtable.setEntryValueStrict('LobbyList', newList);
+    myAirtable.setEntryValueStrict('Lobby', newList);
+
+    myAirtable2.createEntry(playerID, username);
 }
