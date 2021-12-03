@@ -168,8 +168,28 @@ function addToGame (playerID){
 
 function kick(playerID){
     var oldList = myAirtable.getEntryValue('Lobby');
-    myAirtable.setEntryValueStrict('Lobby', oldList.replace(playerID, 'kicked'));
     document.getElementById("row" + playerID).remove();
 
     
+}
+
+//Removes all players from the lobby 
+function resetLobby(){
+    var listOfIDs = myAirtable.getEntryValue('Lobby');
+    let arrayOfIDs = listOfIDs.split(',');
+    arrayOfIDs.pop();
+    myAirtable.setEntryValueStrict('Lobby', 'null');
+
+    for (let i = 0; i < arrayOfIDs.length; i++){
+        try{
+            myAirtable2.deleteEntry(arrayOfIDs[i]);
+            document.getElementById('row' + arrayOfIDs[i]).remove();
+        }
+
+        catch{
+            console.log("an ID not found error occured")
+        }
+
+        
+    }
 }
