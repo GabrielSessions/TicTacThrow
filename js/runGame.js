@@ -1,5 +1,8 @@
 var checkPlayerNum;
 
+var curAngle;
+var curPower;
+
 //updates playerNumber if added to a player spot
 function checkIfAddedToGame(){
     checkPlayerNum = setInterval(() => {
@@ -42,37 +45,25 @@ function gamePage(){
 
     var gamePlayDiv = document.createElement('div');
 
-
-
-
     gamePlayDiv.innerHTML = gameplayPage;
-
-
-    
 
     document.body.appendChild(gamePlayDiv);
 
-    //slider code starts here
-    let rangeInput = document.querySelector(".range-input input");
-    let rangeValue = document.querySelector(".range-input .value div");
 
-    let start = parseFloat(rangeInput.min);
-    let end = parseFloat(rangeInput.max);
-    let step = parseFloat(rangeInput.step);
+    //Gets values from sliders 
+    document.getElementById("myRange1").oninput = function() {
+        curAngle = document.getElementById("myRange1").value;
+        document.getElementById("angle_display").innerHTML = "Angle: " + curAngle + " deg";
 
-    for(let i=start;i<=end;i+=step){
-    rangeValue.innerHTML += '<div>'+i+'</div>';
     }
 
-    rangeInput.addEventListener("input",function(){
-    let top = parseFloat(rangeInput.value)/step * -40;
-    rangeValue.style.marginTop = top+"px";
-    });
+    document.getElementById("myRange2").oninput = function() {
+        curPower = document.getElementById("myRange2").value;
+        document.getElementById("power_display").innerHTML = "Power: " + curPower;
+    }
 
-    //slider code ends here
+    
 
     
     
 }
-
-//Start function chain

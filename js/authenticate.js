@@ -3,14 +3,18 @@
 //If a cookie with a valid password is found, the user is automatically signed in
 var numAttempts = 3;
 const secure_password = '2d5a0345254102ae731207917fd24d2e8b7f7ebbfc0f3032776d52548b445cc9';
+//const secure_password = '6ea1408f2859b0700d9bb3f10e535257296cb1cd56f2887c1e3ecdb63c717444';
 var curPassword = '';
+
 console.log(getCookie('password'))
 try{
 	curPassword = getCookie('password');
+	
 }
 catch{
 	console.log("Not a trusted user")
 }
+
 
 
 function sha256(ascii) {
