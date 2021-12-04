@@ -51,6 +51,9 @@ function addNameToLobby(){
     myAirtable2.createEntry(playerID, username);
 
     checkIfKicked();
+
+    //Function is in runGame.js
+    checkIfAddedToGame();
 }
 
 function checkIfKicked(){

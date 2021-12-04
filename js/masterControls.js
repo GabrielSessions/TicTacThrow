@@ -161,25 +161,43 @@ function addNewTableRow(userID){
 //Adds the selected player to a game if there is avaliable space
 //Player ID is entered into open spot
 function addToGame (playerID){
+    var inGame = false;
     console.log(playerID);
-    if (myAirtable.getEntryValue('Player1') == 0 && myAirtable.getEntryValue('Player1') != playerID){
+    switch(playerID){
+        case myAirtable.getEntryValue('Player1'):
+            inGame = true;
+            break;
+        case myAirtable.getEntryValue('Player2'):
+            inGame = true;
+            break;
+        case myAirtable.getEntryValue('Player3'):
+            inGame = true;
+            break;
+    }
+
+
+    if (myAirtable.getEntryValue('Player1') == 0 && !inGame){
         myAirtable.setEntryValueNotStrict('Player1', playerID);
         playersList[0] = playerID;
     }
-    else if(myAirtable.getEntryValue('Player2') == 0 && myAirtable.getEntryValue('Player2') != playerID){
+    else if(myAirtable.getEntryValue('Player2') == 0 && !inGame){
         myAirtable.setEntryValueNotStrict('Player2', playerID);
         playersList[1] = playerID;
     }
-    else if(myAirtable.getEntryValue('Player3') == 0 && myAirtable.getEntryValue('Player3') != playerID){
+    else if(myAirtable.getEntryValue('Player3') == 0 && !inGame){
         myAirtable.setEntryValueNotStrict('Player3', playerID);
         playersList[2] = playerID;
     }
+    else if (inGame){
+        alert('This player is already in the game.')
+    }
     else{
-        alert('There are no open spots left');
+        alert('There are no open spots left.');
     }
 
 }
 
+//Removes player from playerID list and gamemaster view
 function kick(playerID){
     var oldList = myAirtable.getEntryValue('Lobby');
     document.getElementById("row" + playerID).remove();
@@ -197,6 +215,7 @@ function resetLobby(){
     myAirtable.setEntryValueStrict('Player2', 0);
     myAirtable.setEntryValueStrict('Player3', 0);
     myAirtable.setEntryValueStrict('Turn', 0);
+    myAirtable.setEntryValueStrict('GameStarted', false);
 
     for (let i = 0; i < arrayOfIDs.length; i++){
         try{
@@ -227,4 +246,9 @@ function startGame(){
 
     //Delete Lobby 
     document.getElementById('controlPlayers').hidden = true;
+}
+
+//Sets GameStarted var to false
+function stopGame(){
+    myAirtable.setEntryValueStrict('GameStarted', false);
 }
