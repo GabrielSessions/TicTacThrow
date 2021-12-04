@@ -37,8 +37,40 @@ function gev(val){
 function gamePage(){
     
     //console.log(document.getElementById('waitingText').innerHTML);
-    document.getElementById('waitingText').innerHTML = "<h3 align = center>You are Player " + playerNumber + "</h3>";
+    document.getElementById('waitingText').innerHTML = "<h3 align = center>Hello, " + username + "! You are Player " + playerNumber + "</h3><br><br>";
     document.getElementById('loader').remove();
+
+    var gamePlayDiv = document.createElement('div');
+
+
+
+
+    gamePlayDiv.innerHTML = gameplayPage;
+
+
+    
+
+    document.body.appendChild(gamePlayDiv);
+
+    //slider code starts here
+    let rangeInput = document.querySelector(".range-input input");
+    let rangeValue = document.querySelector(".range-input .value div");
+
+    let start = parseFloat(rangeInput.min);
+    let end = parseFloat(rangeInput.max);
+    let step = parseFloat(rangeInput.step);
+
+    for(let i=start;i<=end;i+=step){
+    rangeValue.innerHTML += '<div>'+i+'</div>';
+    }
+
+    rangeInput.addEventListener("input",function(){
+    let top = parseFloat(rangeInput.value)/step * -40;
+    rangeValue.style.marginTop = top+"px";
+    });
+
+    //slider code ends here
+
     
     
 }
