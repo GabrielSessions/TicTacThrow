@@ -81,7 +81,7 @@ function launchBall(){
     myAirtable.setEntryValueStrict('Power', parseInt(curPower));
 
     if (playerNumber == 3){
-        progressBar();
+        progressBar(5000);
         document.getElementById('launchbutton1').disabled = true;
         setTimeout(() => {
             myAirtable.setEntryValueStrict('Turn', 1);
@@ -91,7 +91,7 @@ function launchBall(){
     }
     
     else{
-        progressBar();
+        progressBar(5000);
         document.getElementById('launchbutton1').disabled = true;
         setTimeout(() => {
             myAirtable.setEntryValueStrict('Turn', playerNumber + 1);
@@ -113,13 +113,13 @@ function progressBar(totalTime){
     var progressBar = document.createElement('progress');
     progressBar.setAttribute('id', 'pBar');
     progressBar.setAttribute('style', 'width: 30%; height: 24px;')
-    progressBar.value = 5;
+    progressBar.value = 0;
     progressBar.max = 100;
 
     progressBarDiv.append(progressBar);
     document.body.appendChild(progressBarDiv);
 
-    increment_pb(totalTime, progressBar);
+    increment_pb(totalTime);
 
 
 }
@@ -129,8 +129,11 @@ function increment_pb(totalTime){
     var pbElement = document.getElementById('pBar');
     setTimeout(() => {
         if (pbElement.value < 100){
-            pbElement.value = pbElement + 1;
+            pbElement.value = pbElement.value + 1;
             increment_pb(totalTime);
+        }
+        else{
+            document.getElementById('pBarDiv').remove();
         }
     }, (totalTime/100));
 

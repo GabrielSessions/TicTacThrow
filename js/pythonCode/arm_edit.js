@@ -29,7 +29,7 @@ function runPythonCode(angle, power){
     serviceSPIKE.writeProgram('arm_edit.py', armCode_edit, 0);
     setTimeout(() => {
         runCode();
-    }, 3000);
+    }, 3500);
     
     
 }

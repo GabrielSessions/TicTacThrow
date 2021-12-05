@@ -286,7 +286,7 @@ function checkForLaunch(){
             runPythonCode(curMasterAngle, curMasterPower);
         }
         else{
-            console.log('nope');
+            //console.log('nope');
         }
     }, 2000);
 }
