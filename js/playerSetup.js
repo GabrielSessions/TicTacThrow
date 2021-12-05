@@ -63,3 +63,5 @@ function checkIfKicked(){
         }
     }, 2000);
 }
+
+

@@ -67,11 +67,44 @@ function gamePage(){
         document.getElementById('arrow').style.setProperty('font-size', curPower * 1.6 + 30);
     }
 
-    
-    
 
+    checkIfTurn();
     
+}
 
+function launchBall(){
+
+    myAirtable.setEntryValueStrict('Angle', parseInt(curAngle));
+    myAirtable.setEntryValueStrict('Power', parseInt(curPower));
+
+    if (playerNumber == 3){
+        myAirtable.setEntryValueStrict('Turn', 1);
+    }
     
+    else{
+        myAirtable.setEntryValueStrict('Turn', playerNumber + 1);
+    }
     
+}
+
+
+//If it's the player's turn, launch is enabled
+//If turn ended, launch capabilities are disabled
+function checkIfTurn(){
+    checkTurnInterval = setInterval(() => {
+        curTurn = myAirtable.getEntryValue('Turn');
+        if (curTurn == playerNumber){
+            if (document.getElementById('launchbutton1').hidden){
+                document.getElementById('launchbutton1').hidden = false;
+                document.getElementById('launchbutton2').hidden = true;
+            }
+        }
+
+        else{
+            if (document.getElementById('launchbutton2').hidden){
+                document.getElementById('launchbutton1').hidden = true;
+                document.getElementById('launchbutton2').hidden = false;
+            }
+        }
+    }, 500);
 }

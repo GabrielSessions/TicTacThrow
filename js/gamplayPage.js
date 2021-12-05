@@ -15,7 +15,6 @@ var gameplayPage = `
         <h2 id = "power_display">Power: 50<span id = "power_value"></span></h3>
     </div>
 </div>
-
 </div>
 
 <div style = "margin-left: auto; margin-right: auto">
@@ -26,6 +25,9 @@ var gameplayPage = `
 
 <br><br>
 <div style = "margin-left: auto; margin-right: auto; text-align:center">
-  <button type = "button" onclick = "console.log('clicked')" disabled>Launch</button>
+  <button id = "launchbutton1" class = "launchbutton1" type = "button" onclick = "launchBall()" hidden>Launch <img src = "img/rocket_button_img.png" style = "height: 24px; width: auto;"></img></button>
+  <button id = "launchbutton2" class = "launchbutton2" type = "button" onclick = "console.log('error')" disabled>Please Wait For Your Turn <div class="loader"></div></button>
 </div>
+
+
 `
