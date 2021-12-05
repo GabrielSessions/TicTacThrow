@@ -50,17 +50,25 @@ function gamePage(){
     document.body.appendChild(gamePlayDiv);
 
 
-    //Gets values from sliders 
+    //Gets values from sliders and displays them
+    //Changes arrow size and direction using these values
     document.getElementById("myRange1").oninput = function() {
         curAngle = document.getElementById("myRange1").value;
         document.getElementById("angle_display").innerHTML = "Angle: " + curAngle + " deg";
+
+        document.getElementById('arrow').style.setProperty('transform', 'rotate('+ curAngle +'deg)')
 
     }
 
     document.getElementById("myRange2").oninput = function() {
         curPower = document.getElementById("myRange2").value;
         document.getElementById("power_display").innerHTML = "Power: " + curPower;
+
+        document.getElementById('arrow').style.setProperty('font-size', curPower * 1.6 + 30);
     }
+
+    
+    
 
     
 

@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  
+.column1 {
+    float: left;
+    width: 45%;
+    padding: 10px;
+    height: auto; 
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.column2{
+    float: left;
+    width: 45%;
+    padding: 10px;
+    height: auto; 
+    display: inline-block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+  
+}
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+  
+  
+  
+  
+  
+  
+.slider {
+    -webkit-appearance: none;
+    width: 50%;
+    height: 15px;
+    border-radius: 5px;  
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #1100fc;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #04AA6D;
+    cursor: pointer;
+}
+.inlineSlider{
+    display: inline-block;
+}
+  
+.arrow{
+    width: 100px;
+    margin:auto;
+    height: auto;
+    font-size:64px;
+    transform: rotate(0);
+    text-align: center;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column1 {
+        width: 100%;
+    }
+    .column2 {
+        width: 100%;
+    }
+
+    .arrow{
+        width: 35%;
+        margin:auto;
+        height: auto;
+        font-size:64px;
+        transform: rotate(0);
+        text-align: center;
+    }
+  }
