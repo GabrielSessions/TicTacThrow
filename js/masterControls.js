@@ -75,7 +75,7 @@ function controlRobot(){
     var speed = Math.round(document.getElementById('lname').value);
 
     //validity check, must be a valid number
-    if (angle > 90 || angle < -90 || speed < 0 || speed > 100){
+    if (angle > 180 || angle < -180 || speed < 0 || speed > 100){
         alert("An invalid angle or speed value was entered, please try again!");
     }
     else{
