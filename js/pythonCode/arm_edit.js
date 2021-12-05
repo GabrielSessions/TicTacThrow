@@ -14,17 +14,18 @@ function runPythonCode(angle, power){
     
 
     # Set up
-    angle.run_to_position(0, 'shortest path', 50)
-    power.run_to_position(0, 'shortest path', 50)
+    angle.run_to_position(0, 'shortest path', 20)
+    power.run_to_position(0, 'shortest path', 20)
 
     # Launch
     angle.run_to_position(angleVal, 'shortest path', 10)
     power.run_to_position(90, 'clockwise', speedVal)
 
     # Reset
-    angle.run_to_position(0, 'shortest path', 50)
-    power.run_to_position(0, 'shortest path', 50)`;
-
+    angle.run_to_position(0, 'shortest path', 20)
+    power.run_to_position(0, 'shortest path', 20)`;
+    
+    
     console.log(armCode_edit);
     serviceSPIKE.writeProgram('arm_edit.py', armCode_edit, 0);
     setTimeout(() => {
