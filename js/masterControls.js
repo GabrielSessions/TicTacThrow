@@ -20,7 +20,11 @@ AirtableElement2.init();
 
 var currentIDList = '';
 var playersList = [];
-var serviceSPIKE;
+
+var checkForLaunchInterval;
+
+var curMasterAngle = 0;
+var curMasterPower = 50;
 
 //keeps track of who's in the lobby
 
@@ -34,7 +38,8 @@ function bootSPIKE (){
 
     serviceSPIKE = document.getElementById("service_spike").getService();
     serviceSPIKE.executeAfterInit(async function() {
-        serviceSPIKE.writeProgram("arm.py", armCode, 0);
+        console.log(armCode);
+        //serviceSPIKE.writeProgram("arm.py", armCode, 0);
 
         
         
@@ -55,6 +60,8 @@ function bootSPIKE (){
         playersList.push(myAirtable.getEntryValue('Player1'));
         playersList.push(myAirtable.getEntryValue('Player2'));
         playersList.push(myAirtable.getEntryValue('Player3'));
+
+        checkForLaunch();
     }, 200);
     
     
@@ -80,7 +87,9 @@ function controlRobot(){
 }
 
 function runCode(){
+    
     serviceSPIKE.executeProgram(0);
+    
 }
 
 function stopCode(){
@@ -108,7 +117,7 @@ function getNames(){
 function updateNameList(oldIDList, newIDList){
     let oldListArray = oldIDList.split(',');
     let newListArray = newIDList.split(',');
-    let lenDiffs = newListArray.length - oldListArray.length;
+    //let lenDiffs = newListArray.length - oldListArray.length;
 
     //last entry is an empty String ans is removed
     oldListArray.pop();
@@ -216,6 +225,7 @@ function resetLobby(){
     myAirtable.setEntryValueStrict('Player3', 0);
     myAirtable.setEntryValueStrict('Turn', 0);
     myAirtable.setEntryValueStrict('GameStarted', false);
+    myAirtable.setEntryValueStrict('startLaunch', false);
 
     for (let i = 0; i < arrayOfIDs.length; i++){
         try{
@@ -244,11 +254,39 @@ function startGame(){
     var turnNum = Math.floor(Math.random()*3 + 1);
     myAirtable.setEntryValueStrict('Turn', turnNum);
 
-    //Delete Lobby 
-    document.getElementById('controlPlayers').hidden = true;
+    //Delete Lobby (currently disabled command) 
+    //document.getElementById('controlPlayers').hidden = true;
+
 }
 
 //Sets GameStarted var to false
 function stopGame(){
     myAirtable.setEntryValueStrict('GameStarted', false);
+    resetLobby();
+}
+
+
+//If startLaunch is true, then matching python code will be uploaded and run
+function checkForLaunch(){
+    checkForLaunchInterval = setInterval(() => {
+       
+        curMasterAngle = myAirtable.getEntryValue('Angle');
+        curMasterPower = myAirtable.getEntryValue('Power');
+
+        if (myAirtable.getEntryValue('startLaunch')){
+            
+            myAirtable.setEntryValueStrict('startLaunch', false);
+
+            if (curMasterAngle < 0){
+                curMasterAngle = 360 + curMasterAngle;
+            }
+
+            console.log(curMasterAngle);
+
+            runPythonCode(curMasterAngle, curMasterPower);
+        }
+        else{
+            console.log('nope');
+        }
+    }, 2000);
 }

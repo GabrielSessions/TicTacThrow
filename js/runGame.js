@@ -1,7 +1,7 @@
 var checkPlayerNum;
 
-var curAngle;
-var curPower;
+var curAngle = 0;
+var curPower = 50;
 
 //updates playerNumber if added to a player spot
 function checkIfAddedToGame(){
@@ -72,39 +72,103 @@ function gamePage(){
     
 }
 
+
+//Sends launch data to airtable
 function launchBall(){
+    const timeDelay = 5000; //5 Seconds
 
     myAirtable.setEntryValueStrict('Angle', parseInt(curAngle));
     myAirtable.setEntryValueStrict('Power', parseInt(curPower));
 
     if (playerNumber == 3){
-        myAirtable.setEntryValueStrict('Turn', 1);
+        progressBar();
+        document.getElementById('launchbutton1').disabled = true;
+        setTimeout(() => {
+            myAirtable.setEntryValueStrict('Turn', 1);
+            document.getElementById('launchbutton1').disabled = false;
+        }, timeDelay);
+        
     }
     
     else{
-        myAirtable.setEntryValueStrict('Turn', playerNumber + 1);
+        progressBar();
+        document.getElementById('launchbutton1').disabled = true;
+        setTimeout(() => {
+            myAirtable.setEntryValueStrict('Turn', playerNumber + 1);
+            document.getElementById('launchbutton1').disabled = false; 
+        }, timeDelay);
+        
     }
     
+    myAirtable.setEntryValueStrict('startLaunch', true);
 }
 
+
+function progressBar(totalTime){
+    var progressBarDiv = document.createElement('div');
+    progressBarDiv.setAttribute('id', 'pBarDiv');
+    progressBarDiv.setAttribute('style', 'text-align:center');
+    progressBarDiv.innerHTML = "<br><br>"
+
+    var progressBar = document.createElement('progress');
+    progressBar.setAttribute('id', 'pBar');
+    progressBar.setAttribute('style', 'width: 30%; height: 24px;')
+    progressBar.value = 5;
+    progressBar.max = 100;
+
+    progressBarDiv.append(progressBar);
+    document.body.appendChild(progressBarDiv);
+
+    increment_pb(totalTime, progressBar);
+
+
+}
+
+//Steadily increases progress in progress bar
+function increment_pb(totalTime){
+    var pbElement = document.getElementById('pBar');
+    setTimeout(() => {
+        if (pbElement.value < 100){
+            pbElement.value = pbElement + 1;
+            increment_pb(totalTime);
+        }
+    }, (totalTime/100));
+
+}
 
 //If it's the player's turn, launch is enabled
 //If turn ended, launch capabilities are disabled
 function checkIfTurn(){
+    var doNotRepeatStallTimer = false;
+    var stallTimer = true;
     checkTurnInterval = setInterval(() => {
         curTurn = myAirtable.getEntryValue('Turn');
-        if (curTurn == playerNumber){
+
+        if (curTurn == playerNumber ){
             if (document.getElementById('launchbutton1').hidden){
                 document.getElementById('launchbutton1').hidden = false;
                 document.getElementById('launchbutton2').hidden = true;
+                //doNotRepeatStallTimer = false;
+                
             }
         }
+
+        /*
+        else if (curTurn == playerNumber && stallTimer & doNotRepeatStallTimer){
+            doNotRepeatStallTimer = true;
+            setTimeout(() => {
+                stallTimer = false;
+            }, 4000);
+        }
+        */
 
         else{
             if (document.getElementById('launchbutton2').hidden){
                 document.getElementById('launchbutton1').hidden = true;
                 document.getElementById('launchbutton2').hidden = false;
+                stallTimer = true;
             }
         }
+
     }, 500);
 }
