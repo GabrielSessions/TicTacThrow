@@ -51,7 +51,7 @@ function gev(val){
 function gamePage(){
     
     //console.log(document.getElementById('waitingText').innerHTML);
-    document.getElementById('waitingText').innerHTML = "<h3 align = center id = 'playerNumDisplay'>Hello, " + username + "! You are Player " + playerNumber + " &#11044</h3><br><br>";
+    document.getElementById('waitingText').innerHTML = "<h3 align = center id = 'playerNumDisplay'>Hello, " + myAirtable2.getEntryValue(playerID) + "! You are Player " + playerNumber + " &#11044</h3><br><br>";
     document.getElementById('waitingText').setAttribute('style', 'color: rgb('+ 255 * (playerNumber==1) + ', ' + 255 * (playerNumber==2) + ', '+ 255 * (playerNumber==3) + ');');
     document.getElementById('loader').remove();
 
