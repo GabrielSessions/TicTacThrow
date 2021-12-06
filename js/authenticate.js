@@ -1,3 +1,12 @@
+/*
+authenticate.js
+Gabriel Sessions
+Purpose: Sign-In Process for Gamemaster Page
+- Accesses value submitted as a password, checks if matched secure password
+- Hash makes it difficult to determine correct password
+- If correct password is entered, the rest of the gamemaster page loads (see masterControls.js) 
+*/
+
 
 //Set up password check
 //If a cookie with a valid password is found, the user is automatically signed in

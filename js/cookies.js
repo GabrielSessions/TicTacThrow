@@ -1,4 +1,9 @@
-//Cookies code copied from CS HL2 IA
+/*
+cookies.js
+Gabriel Sessions
+Purpose: COOKIES
+- Allows the website to set and get cookies from user's browser
+*/
 
 //cvalue should be a String
 function setCookie(cname, cvalue, exdays) {

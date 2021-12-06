@@ -1,3 +1,12 @@
+/*
+playerSetup.js
+Gabriel Sessions
+Purpose: Sets up remote user interface.
+- Takes in user's name and generates a player ID based on logon time
+- Allows users to join a lobby and generates a loading animation
+*/
+
+
 var username = '';
 var playerID = String(Date.now());
 var playerNumber = 0;

@@ -1,3 +1,17 @@
+/*
+masterControls.js
+Gabriel Sessions
+Purpose: Add functions to gamemaster page to allow total control over the game
+- Accessible only after sign-in
+- Can connect to the SPIKE Prime Using Service Dock
+- Can force robot to execute a throw
+- Add people to a game and reset a game
+- Execute/Stop SPIKE Prime Code
+- Upadate Lobby with Incoming Users
+- Start a Game of Tic Tac Throw!
+*/
+
+
 //Airtable and SPIKE Prime Setup
 
 var AirtableElement = document.getElementById("service_airtable");

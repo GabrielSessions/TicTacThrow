@@ -1,3 +1,14 @@
+/*
+runGame.js
+Gabriel Sessions
+Purpose: Loads and generates game elements for the user to play the game.
+- Adds the user to a game if directed by the gamemaster
+- Loads input interface when game starts
+- Visualization of inputs using an input
+- Submission of power/angle combinations to shoot a ball (sent to masterControls.js)
+*/
+
+
 var checkPlayerNum;
 
 var curAngle = 0;

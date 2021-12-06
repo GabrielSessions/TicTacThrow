@@ -1,3 +1,13 @@
+/*
+gameplayPage.js
+Gabriel Sessions
+Purpose: store HTML for remote interface
+- Will be added to document.body when game starts
+- Includes sliders and buttons
+- Functions are in runGame.js
+*/
+
+
 var gameplayPage = `
 
 <div class = "row">
