@@ -40,7 +40,7 @@ window.onload = function() {
     if (cookieVal.length > 1){
         playerID = cookieVal;
         
-
+        
         //automatically add to lobby
         document.getElementById('nameForm').remove();
         document.getElementById('loader').removeAttribute ('hidden');
@@ -99,7 +99,7 @@ function addNameToLobby(){
 function checkIfKicked(){
     var kickInterval = setInterval(() => {
         if (myAirtable.getEntryValue('Lobby').indexOf(playerID) == -1){
-            deleteAllCookies();
+            setCookie('id', 0);
             setTimeout(() => {
                 window.location.href = "players.html";
             }, 500);
