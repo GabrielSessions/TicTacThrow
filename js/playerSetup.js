@@ -20,10 +20,18 @@ AirtableElement2.setAttribute("baseid", "app" + "IsR76sJVPHgo60");
 AirtableElement2.setAttribute("tablename", "playerID");
 AirtableElement2.init();
 
+window.onload = function() {
+    console.log(getCookie('id'));
+};
+
 
 //loading screen when waiting to join game
 function loading(){
+
     username = document.getElementById('fname').value;
+
+    //Stores playerID into a cookie so user does not have to sign in again
+    setCookie('id', playerID);
 
     console.log(username);
 
@@ -35,6 +43,8 @@ function loading(){
     addNameToLobby();
 }
 
+
+//Adds Player ID to list
 function addNameToLobby(){
     var oldList = myAirtable.getEntryValue('Lobby');
     var newList = '';
