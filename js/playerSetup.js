@@ -39,7 +39,11 @@ window.onload = function() {
 
     if (cookieVal.length > 1){
         playerID = cookieVal;
-        username = myAirtable2.getEntryValue(playerID);
+
+        setTimeout(() => {
+            username = myAirtable2.getEntryValue(playerID);
+        }, 200);
+        
 
         //automatically add to lobby
         document.getElementById('nameForm').remove();
