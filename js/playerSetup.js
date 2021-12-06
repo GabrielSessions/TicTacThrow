@@ -22,6 +22,7 @@ AirtableElement2.init();
 
 window.onload = function() {
     console.log(getCookie('id'));
+    console.log(typeof(getCookie('id')));
 };
 
 
