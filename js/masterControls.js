@@ -11,7 +11,6 @@ Purpose: Add functions to gamemaster page to allow total control over the game
 - Start a Game of Tic Tac Throw!
 */
 
-
 //Airtable and SPIKE Prime Setup
 
 var AirtableElement = document.getElementById("service_airtable");
@@ -40,10 +39,6 @@ var checkForLaunchInterval;
 var curMasterAngle = 0;
 var curMasterPower = 50;
 
-//keeps track of who's in the lobby
-
-
-
 //Initializes SPIKE Prime and unhides all secure content
 function bootSPIKE (){
     spikeService = document.createElement("service-spike");
@@ -51,11 +46,9 @@ function bootSPIKE (){
     document.getElementById('spikeBox').append(spikeService);
 
     serviceSPIKE = document.getElementById("service_spike").getService();
+
     serviceSPIKE.executeAfterInit(async function() {
         console.log(armCode);
-        //serviceSPIKE.writeProgram("arm.py", armCode, 0);
-
-        
         
     })
 
@@ -76,10 +69,7 @@ function bootSPIKE (){
         playersList.push(myAirtable.getEntryValue('Player3'));
 
         checkForLaunch();
-    }, 200);
-    
-    
-    
+    }, 200);  
 
 }
 
@@ -101,9 +91,7 @@ function controlRobot(){
 }
 
 function runCode(){
-    
     serviceSPIKE.executeProgram(0);
-    
 }
 
 function stopCode(){
@@ -118,7 +106,6 @@ function getNames(){
         var listOfIDs = myAirtable.getEntryValue('Lobby');
         if (listOfIDs != currentIDList){
             updateNameList(currentIDList, listOfIDs);
-            
             
         }
 
@@ -136,15 +123,10 @@ function updateNameList(oldIDList, newIDList){
     //last entry is an empty String ans is removed
     oldListArray.pop();
     newListArray.pop();
-
-    //console.log(oldListArray);
-    //console.log(newListArray);
     
     
     for(let i = oldListArray.length; i < newListArray.length; i++){
         let curValue = newListArray[i];
-
-        //console.log(typeof(curValue));
 
         /*
         if (typeof(curValue) != Number){
@@ -198,7 +180,6 @@ function addToGame (playerID){
             break;
     }
 
-
     if (myAirtable.getEntryValue('Player1') == 0 && !inGame){
         myAirtable.setEntryValueNotStrict('Player1', playerID);
         playersList[0] = playerID;
@@ -232,7 +213,7 @@ function resetLobby(){
     var listOfIDs = myAirtable.getEntryValue('Lobby');
     let arrayOfIDs = listOfIDs.split(',');
     arrayOfIDs.pop();
-    console.log(myAirtable.getEntryValue('Player1'));
+    //console.log(myAirtable.getEntryValue('Player1'));
     myAirtable.setEntryValueStrict('Lobby', 'null');
     myAirtable.setEntryValueStrict('Player1', 0);
     myAirtable.setEntryValueStrict('Player2', 0);
@@ -250,9 +231,6 @@ function resetLobby(){
         catch{
             console.log("an ID not found error occured");
         }
-
-        
-
         
     }
 
@@ -261,7 +239,7 @@ function resetLobby(){
 
 //Changes start variable to true and picks a random starting player
 function startGame(){
-    console.log(myAirtable.getEntryValue('GameStarted'));
+    //console.log(myAirtable.getEntryValue('GameStarted'));
     myAirtable.setEntryValueStrict('GameStarted', true);
 
     //random starting 1st player
