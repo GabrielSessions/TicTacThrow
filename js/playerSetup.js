@@ -20,19 +20,38 @@ AirtableElement2.setAttribute("baseid", "app" + "IsR76sJVPHgo60");
 AirtableElement2.setAttribute("tablename", "playerID");
 AirtableElement2.init();
 
+//Checks if cookie is stored
+//If cookie is found, player ID will be set to the stored value
+//All cookies are stored as Strings
+//If no cookie found, playerID stored into a cookie so user does not have to sign in again
 window.onload = function() {
-    console.log(getCookie('id'));
-    console.log(typeof(getCookie('id')));
+    let cookieVal = getCookie('id');
+    console.log(typeof(cookieVal) + ", " + cookieVal);
+
+    if (cookieVal.length > 1){
+        playerID = cookieVal;
+
+        //automatically add to lobby
+        document.getElementById('nameForm').remove();
+        document.getElementById('loader').removeAttribute ('hidden');
+        document.getElementById('subheadLoad').removeAttribute ('hidden');
+
+        //check if user needs to be re-added to the game
+        checkIfKicked();
+        checkIfAddedToGame();
+
+    }
+    
 };
 
 
 //loading screen when waiting to join game
 function loading(){
 
+    setCookie('id', playerID);
+
     username = document.getElementById('fname').value;
 
-    //Stores playerID into a cookie so user does not have to sign in again
-    setCookie('id', playerID);
 
     console.log(username);
 
