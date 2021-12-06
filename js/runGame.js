@@ -154,7 +154,7 @@ function increment_pb(totalTime){
 //If it's the player's turn, launch is enabled
 //If turn ended, launch capabilities are disabled
 function checkIfTurn(){
-    var doNotRepeatStallTimer = false;
+    //var doNotRepeatStallTimer = false;
     var stallTimer = true;
     checkTurnInterval = setInterval(() => {
         curTurn = myAirtable.getEntryValue('Turn');
@@ -167,15 +167,6 @@ function checkIfTurn(){
                 
             }
         }
-
-        /*
-        else if (curTurn == playerNumber && stallTimer & doNotRepeatStallTimer){
-            doNotRepeatStallTimer = true;
-            setTimeout(() => {
-                stallTimer = false;
-            }, 4000);
-        }
-        */
 
         else{
             if (document.getElementById('launchbutton2').hidden){

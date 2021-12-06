@@ -79,7 +79,7 @@ Purpose: Define CSS structure of the remote (player) page
   
 .arrow{
     width: 100px;
-    margin:auto;
+    margin: auto;
     height: auto;
     font-size:64px;
     transform: rotate(0);
