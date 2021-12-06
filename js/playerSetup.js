@@ -39,10 +39,6 @@ window.onload = function() {
 
     if (cookieVal.length > 1){
         playerID = cookieVal;
-
-        setTimeout(() => {
-            username = myAirtable2.getEntryValue(playerID);
-        }, 500);
         
 
         //automatically add to lobby
@@ -104,9 +100,12 @@ function checkIfKicked(){
     var kickInterval = setInterval(() => {
         if (myAirtable.getEntryValue('Lobby').indexOf(playerID) == -1){
             deleteAllCookies();
-            window.location.href = "players.html"
+            setTimeout(() => {
+                window.location.href = "players.html";
+            }, 500);
+            
         }
-    }, 2000);
+    }, 1500);
 }
 
 
