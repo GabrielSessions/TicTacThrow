@@ -42,7 +42,7 @@ window.onload = function() {
 
         setTimeout(() => {
             username = myAirtable2.getEntryValue(playerID);
-        }, 200);
+        }, 500);
         
 
         //automatically add to lobby
