@@ -98,6 +98,7 @@ function addNameToLobby(){
 function checkIfKicked(){
     var kickInterval = setInterval(() => {
         if (myAirtable.getEntryValue('Lobby').indexOf(playerID) == -1){
+            setCookie('id', '0');
             window.location.href = "players.html"
         }
     }, 2000);
