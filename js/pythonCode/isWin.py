@@ -8,19 +8,19 @@ BLUE  = 3
 def isWin(board):
     for r in range(0, 4):
         for c in range(0, 4):
-            if threeInRow(board, r, c):
-                return True
-    return False
-
+          # I changed the next three lines
+          tempVal = threeInRow(board, r, c)
+          if tempVal != 0:
+            return tempVal
+    return NONE
 
 def threeInRow(board, row, col):
     currColor = board[row][col]
     if currColor != NONE and (inDiagonal(board, row, col, 3, currColor) or inRow(board, row, col, 3, currColor) or inCol(board, row, col, 3, currColor)):
-        return True
+        return currColor # I changed this
     else:
-        return False
+        return NONE # I changed This
 
-# Checks if diagonal, from top right corner
 def inDiagonal(board, row, col, distance, color):
     if distance == 0:
         return True 
@@ -33,7 +33,6 @@ def inDiagonal(board, row, col, distance, color):
     else:
         return False
 
-# Checks if row, from top right corner
 def inRow(board, row, col, distance, color):
     if distance == 0:
         return True 
@@ -46,7 +45,6 @@ def inRow(board, row, col, distance, color):
     else:
         return False
 
-# Checks if column, from top right corner
 def inCol(board, row, col, distance, color):
     if distance == 0:
         return True 
