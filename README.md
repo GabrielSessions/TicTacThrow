@@ -10,10 +10,10 @@ Coming Soon!
 
 ## How to Run a Game ##
 1. Open the gamemaster page and enter the correct master password to login. Ask Gabriel if you don't know the password.
-i. Gamemaster Page Link: https://gabrielsessions.github.io/TicTacThrow/gamemaster.html
+  1. Gamemaster Page Link: https://gabrielsessions.github.io/TicTacThrow/gamemaster.html
 2. Open three player pages, enter some names, and join the lobby for each player
-i. Player Page Link (Open 3 Times): https://gabrielsessions.github.io/TicTacThrow/players.html#
-ii. Execute Button on Gamemaster Screen is WIP and will be updated next week
+  1. Player Page Link (Open 3 Times): https://gabrielsessions.github.io/TicTacThrow/players.html#
+  2. Execute Button on Gamemaster Screen is WIP and will be updated next week
 3. On the gamemaster page, click the "Add to Game" Button for each player you want to add. Please not there is no feedback when you add a player, but the site will notify you if you have already added a given player to the game. If you mess up the process at any point, you can clear the lobby using the "Reset Lobby" button which will kick all players out of the lobby.
 4. Connect the master page to the SPIKE Prime using the Service Dock at the top of the gamemaster screen.
 5. Once all players have been added, you can start the game by clicking the "Start Game" button.
