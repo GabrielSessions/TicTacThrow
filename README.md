@@ -9,7 +9,7 @@ Code Documentation:
 Coming Soon!
 
 ## How to Run a Game ##
-1. Open the gamemaster page and enter the correct master password to login. Ask Gabriel if you don't know the password.
+Markup: 1. Open the gamemaster page and enter the correct master password to login. Ask Gabriel if you don't know the password.
   1. Gamemaster Page Link: https://gabrielsessions.github.io/TicTacThrow/gamemaster.html
 2. Open three player pages, enter some names, and join the lobby for each player
   1. Player Page Link (Open 3 Times): https://gabrielsessions.github.io/TicTacThrow/players.html#
