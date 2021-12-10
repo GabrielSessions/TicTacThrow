@@ -11,6 +11,7 @@ var username = '';
 var playerID = String(Date.now());
 var playerNumber = 0;
 var inLobby = false;
+var checkName;
 
 //airtable set up
 
@@ -62,15 +63,21 @@ window.onload = function() {
             }
         });
     }
+
+    checkName = setInterval(() => {
+        username = document.getElementById('fname').value;
+    }, 200);
 };
 
 
 //loading screen when waiting to join game
 function loading(){
 
+    clearInterval(checkName);
+
     setCookie('id', playerID);
 
-    username = document.getElementById('fname').value;
+    
 
 
     console.log(username);
