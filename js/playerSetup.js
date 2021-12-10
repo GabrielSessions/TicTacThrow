@@ -10,6 +10,7 @@ Purpose: Sets up remote user interface.
 var username = '';
 var playerID = String(Date.now());
 var playerNumber = 0;
+var inLobby = false;
 
 //airtable set up
 
@@ -42,6 +43,7 @@ window.onload = function() {
         
         
         //automatically add to lobby
+        inLobby = true;
         document.getElementById('nameForm').remove();
         document.getElementById('loader').removeAttribute ('hidden');
         document.getElementById('subheadLoad').removeAttribute ('hidden');
@@ -51,7 +53,15 @@ window.onload = function() {
         checkIfAddedToGame();
 
     }
-    
+
+    //Check if enter key is pressed on the homepage
+    if (!inLobby){
+        document.addEventListener("keyup", function(event) {
+            if (event.code === 'Enter' && !inLobby) {
+                loading();
+            }
+        });
+    }
 };
 
 
