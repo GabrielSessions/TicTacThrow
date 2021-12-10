@@ -56,15 +56,3 @@ def inCol(board, row, col, distance, color):
         return True 
     else:
         return False
-'''
-Code Fails Diagonal Test
-
-test3 = [[1,0,0,2],[0,0,2,0],[1,2,0,0],[2,1,0,0]]
-print(isWin(test3))
-
-Expected Output: 2
-Actual Output: 0 (in python), null (in JS)
-
-
-
-'''
