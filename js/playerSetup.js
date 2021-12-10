@@ -64,9 +64,7 @@ window.onload = function() {
         });
     }
 
-    checkName = setInterval(() => {
-        username = document.getElementById('fname').value;
-    }, 200);
+   
 };
 
 
@@ -77,17 +75,26 @@ function loading(){
 
     setCookie('id', playerID);
 
-    
-
+    inLobby = true;
 
     console.log(username);
 
     document.getElementById('nameForm').remove();
 
+    //Creates directions video in tab
+
+    var directionsVideoASL = document.createElement('video');
+    directionsVideoASL.setAttribute('id', 'directionsVideo');
+    directionsVideoASL.setAttribute('controls', true);
+    directionsVideoASL.innerHTML = `<source src = img/IMG_0455.MOV type ="video/mp4">`;
+    //Uncomment this line to keep working on video
+    //document.getElementById('waitingText').append(directionsVideoASL);
+
     document.getElementById('loader').removeAttribute ('hidden');
     document.getElementById('subheadLoad').removeAttribute ('hidden');
 
     addNameToLobby();
+    
 }
 
 
