@@ -10,8 +10,6 @@ Purpose: Sets up remote user interface.
 var username = '';
 var playerID = String(Date.now());
 var playerNumber = 0;
-var inLobby = false;
-var checkName;
 
 //airtable set up
 
@@ -44,7 +42,6 @@ window.onload = function() {
         
         
         //automatically add to lobby
-        inLobby = true;
         document.getElementById('nameForm').remove();
         document.getElementById('loader').removeAttribute ('hidden');
         document.getElementById('subheadLoad').removeAttribute ('hidden');
@@ -54,47 +51,26 @@ window.onload = function() {
         checkIfAddedToGame();
 
     }
-
-    //Check if enter key is pressed on the homepage
-    if (!inLobby){
-        document.addEventListener("keyup", function(event) {
-            if (event.code === 'Enter' && !inLobby) {
-                loading();
-            }
-        });
-    }
-
-   
+    
 };
 
 
 //loading screen when waiting to join game
 function loading(){
 
-    clearInterval(checkName);
-
     setCookie('id', playerID);
 
-    inLobby = true;
+    username = document.getElementById('fname').value;
+
 
     console.log(username);
 
     document.getElementById('nameForm').remove();
 
-    //Creates directions video in tab
-
-    var directionsVideoASL = document.createElement('video');
-    directionsVideoASL.setAttribute('id', 'directionsVideo');
-    directionsVideoASL.setAttribute('controls', true);
-    directionsVideoASL.innerHTML = `<source src = img/IMG_0455.MOV type ="video/mp4">`;
-    //Uncomment this line to keep working on video
-    //document.getElementById('waitingText').append(directionsVideoASL);
-
     document.getElementById('loader').removeAttribute ('hidden');
     document.getElementById('subheadLoad').removeAttribute ('hidden');
 
     addNameToLobby();
-    
 }
 
 
@@ -131,5 +107,3 @@ function checkIfKicked(){
         }
     }, 1500);
 }
-
-
