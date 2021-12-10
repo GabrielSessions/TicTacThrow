@@ -39,8 +39,18 @@ var checkForLaunchInterval;
 var curMasterAngle = 0;
 var curMasterPower = 50;
 
+window.onload = function(){
+    console.log()
+    
+}
+
 //Initializes SPIKE Prime and unhides all secure content
 function bootSPIKE (){
+
+    if (sha256(curPassword) != secure_password){
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    }
+
     spikeService = document.createElement("service-spike");
     spikeService.innerHTML = `<service-spike align = center id = "service_spike"></service-spike>`;
     document.getElementById('spikeBox').append(spikeService);
