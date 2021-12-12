@@ -1,24 +1,485 @@
-<!DOCTYPE html>
+<html>
+<head>
+	<title>OpenCV.js Tutorial</title>
+	<!-- this is the script include that links to the OpenCV.js code -->
+	<script type="text/javascript" src="https://docs.opencv.org/master/opencv.js"></script>
+</head>
 <body>
-    <center><h1>Testing isWin code</h1></center>
-</body>
+	<h1>OpenCV.js Tutorial</h1>
+	
+	<p>
+		This is an explanation/demonstration of some simple video/image manipulation using OpenCV.js
+		Note that you need to "run the page" from top-to-bottom as lower bits of code rely on
+		earlier ones.
+	</p>
+	
+	<p>For more information:
+		<ul>
+			<li><a href="https://opencv.org/" target=_blank>OpenCV.org</a></li>
+			<li><a href="https://docs.opencv.org/3.4/d5/d10/tutorial_js_root.html" target=_blank>OpenCV.js Tutorials</a></li>
+		</ul>
+	</p>
+	
+	<h2>JavaScript Include</h2>
+	
+	<blockquote>
+	
+		<p>The following code imports the OpenCV.js library into your webpage.  It should be within the <code>&lt;head&gt;</code> tag.</p>
+		
+		<p><pre><code>&lt;script type="text/javascript" src="https://docs.opencv.org/master/opencv.js"&gt;&lt;/script&gt;</code></pre></p>
+		
+		<p>By including this, you now have a global variable <code>cv</code> that is an object that has all the Computer Vision code.</p>
 
-<script src ="js/pythonCode/isWin.js"></script>
+	</blockquote>
+	
+	<h2>Start Video</h2>
+	
+	<blockquote>
+	
+		<p>Set up the "video canvas" and stream the camera to it.</p>
+		
+		<script language="javascript">
+			// global variables to hold the SIZE of the input
+			var input_width = 640;
+			var input_height = 480;
+			
+			function start_video(video_id) {
+				var video_canvas = document.getElementById(video_id);
+				// Set the width and height:
+				video_canvas.setAttribute("width", input_width);
+				video_canvas.setAttribute("height", input_height);
+				// Get access to the camera!
+				if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+				    // Not adding `{ audio: true }` since we only want video now
+				    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+				        video_canvas.srcObject = stream;
+				        video_canvas.play();
+				    });
+				}
+			}
+		</script>
+	
+		<p><button onclick="start_video('video');">Start Video</button></p>
 
-<!---
-    //Test Case 1: Expected null 
-    var test1 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
-    console.log(isWin(test1));
+		<video id="video" autoplay style="border: black solid 1px;"></video>
 
-    //Test Case 2: Expected 1
-    var test2 = [[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0]];
-    console.log(isWin(test2));
+	</blockquote>
+	
+	<h2>Grab Frame and Display (and returns image data!)</h2>
+	
+	<blockquote>
+		
+		<p>See: <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">DrawImage</a>.</p>
+		
+		<script>
+			// global variables to hold the SIZE of the output
+			var output_width = 320;
+			var output_height = 240;
+			
+			// takes video data and displays on a canvas
+			function display_frame(src_canvas_id, dst_canvas_id) {
+				// source canvas
+				var src_canvas = document.getElementById(src_canvas_id);
+				// set size of destination:
+				var dst_canvas = document.getElementById(dst_canvas_id);
+				dst_canvas.setAttribute("width", output_width);
+				dst_canvas.setAttribute("height", output_height);
+				// create output canvas context
+				dst_canvas_context = dst_canvas.getContext('2d');
+				// draw src onto dst
+				// see: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+				dst_canvas_context.drawImage(src_canvas, 0, 0, output_width, output_height);
+				// return the image data
+				return cv.imread(dst_canvas_id);
+			}
+		</script>
+		
+		<p><button onclick="display_frame('video', 'out1');">Grab Frame</button></p>
 
-    //Test Case 3: Expected 2
-    var test3 = [[1,0,0,2],[0,0,2,0],[1,2,0,0],[2,1,0,0]];
-    console.log(isWin(test3));
+		<canvas id="out1" style="border: black solid 1px;"></canvas>
+		
+	</blockquote>
 
-    
+	<h2>Change Values</h2>
+	
+	<blockquote>
+		
+		<script>
+			// take one canvas, and get data
+			// update values
+			// display output onto another canvas
+			function change_values(src_canvas_id, dst_canvas_id) {
+				// set up dst canvas
+				var dst_canvas = document.getElementById(dst_canvas_id);
+				dst_canvas.setAttribute("width", output_width);
+				dst_canvas.setAttribute("height", output_height);
 
+				// get data from src canvas:
+				var img = cv.imread(src_canvas_id);
 
--->
+				// go through all the pixels
+				// - use += 4 to "jump every fourth value"
+				//   because data is R, G, B, A in array
+				for (var i=0; i<img.data.length; i+=4) {
+					var r = img.data[i];   // red
+					var g = img.data[i+1]; // green
+					var b = img.data[i+2]; // blue
+					var a = img.data[i+3]; // alpha
+					// if pixel is bright, make BRIGHT WHITE (255, 255, 255)
+					var threshold = 75;
+					if (r > threshold && g > threshold && b > threshold) {
+						img.data[i] = 255;   // set red to 255
+						img.data[i+1] = 255; // set green to 255
+						img.data[i+2] = 255; // set blue to 255
+					}
+				}
+
+				// now display the new image
+				cv.imshow(dst_canvas_id, img);
+				// clean up tmp image created
+				img.delete();
+			}
+		</script>
+
+		<p><button onclick="change_values('out1', 'out2');">Change Values</button></p>
+
+		<canvas id="out2" style="border: black solid 1px;"></canvas>
+		
+	</blockquote>
+
+	<h2>Change Colorspace</h2>
+	
+	<blockquote>
+		<p>See:
+			<ul><li><a href="https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html">Changing Colorspaces</a></li></ul>
+		</p>
+		
+		<script>
+			// change colorspace from color to grayscale
+			// note: result is now array of values 0->255 for each pixel
+			function make_grayscale(src_canvas_id, dst_canvas_id) {
+				// set up dst canvas
+				var dst_canvas = document.getElementById(dst_canvas_id);
+				dst_canvas.setAttribute("width", output_width);
+				dst_canvas.setAttribute("height", output_height);
+
+				// get data from src canvas:
+				var img = cv.imread(src_canvas_id);
+				// create a destination:
+				dst = new cv.Mat(); // set up temporary image
+				// convert color, see: https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html
+				cv.cvtColor(img, dst, cv.COLOR_RGBA2GRAY); // convert image to grayscale
+				
+				// display grayscale image
+				cv.imshow(dst_canvas_id, dst);
+				// clean up tmp images created:
+				img.delete();
+				dst.delete();
+			}
+		</script>
+
+		<p><button onclick="make_grayscale('out1', 'out3');">Make Grayscale</button></p>
+		
+		<canvas id="out3" style="border: black solid 1px;"></canvas>
+		
+	</blockquote>
+
+	<h2>Detecting Red</h2>
+	
+	<blockquote>
+		
+		<p>A pixel (in RGB color space) is "red" if the red-component is high AND both the green and blue components are low.</p>
+		
+		<p>(If "red" is high AND one of the others is too, then it's not pure red!  If all three are, then it's almost white!)</p>
+		
+		<script>
+			// detect red algorithm:
+			// - create a grayscale image that matches the original
+			// - go through the original pixels
+			//   > if the pixel is red (high R, low G, low B), then keep the grayscale version
+			//   > else, set the grayscale version to black (0)
+			function detect_red(src_canvas_id, dst_canvas_id) {
+				// set up dst canvas
+				var dst_canvas = document.getElementById(dst_canvas_id);
+				dst_canvas.setAttribute("width", output_width);
+				dst_canvas.setAttribute("height", output_height);
+
+				// get data from src canvas:
+				var img = cv.imread(src_canvas_id);
+				// create a destination:
+				dst = new cv.Mat(); // set up temporary image
+				// convert color, see: https://docs.opencv.org/3.4/db/d64/tutorial_js_colorspaces.html
+				cv.cvtColor(img, dst, cv.COLOR_RGBA2GRAY); // convert image to grayscale
+				
+				// now we have:
+				// - img: original image (R,G,B,A)
+				// - dst: grayscale destination image
+				// look for RED and keep those values
+				// else set to zero (black)
+				for (var i=0; i<img.data.length; i+=4) {
+					var r = img.data[i];   // red
+					var g = img.data[i+1]; // green
+					var b = img.data[i+2]; // blue
+					var a = img.data[i+3]; // alpha
+					// check if red:
+					// - difference between red & green is big and between red & blue is big
+					var threshold = 70;
+					var grayscale_pixel_location = parseInt(i/4);
+					if (r - g > threshold && r - b > threshold) {
+						// pixel is very red, so leave it
+					} else {
+						// pixel is NOT very red, so set to black
+						dst.data[grayscale_pixel_location] = 0;
+					}
+				}
+
+				// display modified grayscale image
+				cv.imshow(dst_canvas_id, dst);
+				// clean up tmp images created:
+				img.delete();
+				dst.delete();
+			}
+		</script>
+		
+		<p><button onclick="detect_red('out1', 'out4');">Detect Red</button></p>
+
+		<canvas id="out4" style="border: black solid 1px;"></canvas>
+		
+	</blockquote>
+	
+	<h2>Thresholding (and R, G, B)</h2>
+	
+	<blockquote>
+		
+		<p>See:
+			<ul><li><a href="https://docs.opencv.org/3.4/d7/dd0/tutorial_js_thresholding.html">Image Thresholding</a></li></ul>
+		</p>
+		
+		<p>Thresholding creates a binary image (each pixel is black or white) based on some threshold value:
+			<ul>
+				<li>if a pixel is above a threshold, then it is set to white</li>
+				<li>otherwise (pixel is below a threshold), it is set to black</li>
+			</ul>
+		</p>
+		
+		<p>Note: you should probably make the threshold different for R, G, and B based on lighting, camera, etc.</p>
+		
+		<script>
+			function threshold_rgb(src_canvas_id, red_canvas_id, green_canvas_id, blue_canvas_id) {
+				// set up dst canvases
+				var red_canvas = document.getElementById(red_canvas_id);
+				red_canvas.setAttribute("width", output_width);
+				red_canvas.setAttribute("height", output_height);
+				var green_canvas = document.getElementById(green_canvas_id);
+				red_canvas.setAttribute("width", output_width);
+				red_canvas.setAttribute("height", output_height);
+				var blue_canvas = document.getElementById(blue_canvas_id);
+				red_canvas.setAttribute("width", output_width);
+				red_canvas.setAttribute("height", output_height);
+
+				// get data from src canvas:
+				var img = cv.imread(src_canvas_id);
+				// create destination images:
+				r_dst = new cv.Mat();
+				cv.cvtColor(img, r_dst, cv.COLOR_RGBA2GRAY); // convert image to grayscale
+				g_dst = new cv.Mat();
+				cv.cvtColor(img, g_dst, cv.COLOR_RGBA2GRAY); // convert image to grayscale
+				b_dst = new cv.Mat();
+				cv.cvtColor(img, b_dst, cv.COLOR_RGBA2GRAY); // convert image to grayscale
+				
+				var threshold = 70; // SAME THRESHOLD FOR ALL
+				for (var i=0; i<img.data.length; i+=4) {
+					var r = img.data[i];   // red
+					var g = img.data[i+1]; // green
+					var b = img.data[i+2]; // blue
+					var a = img.data[i+3]; // alpha
+					var grayscale_pixel_location = parseInt(i/4);
+					// check if red (difference between red & green is big and between red & blue is big)
+					if (r - g > threshold && r - b > threshold) {
+						// pixel is red, make WHITE
+						r_dst.data[grayscale_pixel_location] = 255;
+					} else {
+						// pixel is NOT very red, make BLACK
+						r_dst.data[grayscale_pixel_location] = 0;
+					}
+					// check if green (difference between green & red is big and between green & blue is big)
+					if (g - r > threshold && g - b > threshold) {
+						// pixel is green, make WHITE
+						g_dst.data[grayscale_pixel_location] = 255;
+					} else {
+						// pixel is NOT very green, make BLACK
+						g_dst.data[grayscale_pixel_location] = 0;
+					}
+					// check if blue (difference between blue & red is big and between blue & green is big)
+					if (b - r > threshold && b - g > threshold) {
+						// pixel is red, make WHITE
+						b_dst.data[grayscale_pixel_location] = 255;
+					} else {
+						// pixel is NOT very red, make BLACK
+						b_dst.data[grayscale_pixel_location] = 0;
+					}
+				}
+				
+				// THRESHOLD the GRAYSCALE IMAGES
+				// - convert to binary images
+				// - use same input & destination and 128->255 range
+				cv.threshold(r_dst, r_dst, 128, 255, cv.THRESH_BINARY);
+				cv.threshold(g_dst, g_dst, 128, 255, cv.THRESH_BINARY);
+				cv.threshold(b_dst, b_dst, 128, 255, cv.THRESH_BINARY);
+
+				// display modified grayscale images
+				cv.imshow(red_canvas_id, r_dst);
+				cv.imshow(green_canvas_id, g_dst);
+				cv.imshow(blue_canvas_id, b_dst);
+				// clean up tmp images created:
+				img.delete();
+				r_dst.delete();
+				g_dst.delete();
+				b_dst.delete();
+			}
+		</script>
+
+		<p><button onclick="threshold_rgb('out1', 'red1', 'green1', 'blue1');">Threshold RGB</button></p>
+
+		<p>
+			Red:<br />
+			<canvas id="red1" style="border: black solid 1px;"></canvas><br />
+			Green:<br />
+			<canvas id="green1" style="border: black solid 1px;"></canvas><br />
+			Blue:<br />
+			<canvas id="blue1" style="border: black solid 1px;"></canvas><br />
+		</p>
+		
+	</blockquote>
+
+	<h2>Find Object</h2>
+	
+	<blockquote>
+		
+		<p>See:
+			<ul><li><a href="https://docs.opencv.org/3.4/d0/d43/tutorial_js_table_of_contents_contours.html">Coutours in OpenCV.js</a></li></ul>
+		</p>
+
+		<script>
+			// going to use BINARY image created in previous step
+			// find the coutours in the image
+			// and then draw them (back onto the grayscale image)
+			function find_contours(src_binary_id, src_canvas_id, dst_canvas_id) {
+				// set up dst canvas
+				var dst_canvas = document.getElementById(dst_canvas_id);
+				dst_canvas.setAttribute("width", output_width);
+				dst_canvas.setAttribute("height", output_height);
+				
+				// read in BINARY image
+				var binary_img = cv.imread(src_binary_id);
+				// make sure binary (convert to grayscale and threshold)
+				cv.cvtColor(binary_img, binary_img, cv.COLOR_RGBA2GRAY);
+				cv.threshold(binary_img, binary_img, 128, 255, cv.THRESH_BINARY);
+				// read in grayscale image
+				var dst = cv.imread(src_canvas_id);
+				// convert src to grayscale and then BACK to RGB (since going to draw on it in color)
+				cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY);
+				cv.cvtColor(dst, dst, cv.COLOR_GRAY2RGBA);
+								
+				// setup
+				let contours = new cv.MatVector();
+				let hierarchy = new cv.Mat();
+				
+				// find contours
+				cv.findContours(binary_img, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
+				console.log('- FOUND', contours.size(), 'contours');
+				
+				// go through contours
+				if (contours.size() > 0) {
+					// we are going to draw the contours in YELLOW
+					// - create yellow color (255, 255, 0, 255)
+					let yellow_color = new cv.Scalar(255, 255, 0, 255);
+					// go through each contour:
+					for (var i=0; i<contours.size(); i++) {
+						cv.drawContours(dst, contours, i, yellow_color, 2, cv.LINE_8, hierarchy, 100);
+						
+						// note: you can find the "minimum enclosing circle" around the contour
+						// see: https://docs.opencv.org/3.4/dc/dcf/tutorial_js_contour_features.html
+						let circle = cv.minEnclosingCircle(contours.get(i));
+						// this circle has:
+						// - location: circle.center
+						// - radius: circle.radius
+						// so if it's big (radius > 10) then print to console:
+						console.log(' - circle at', circle.center, 'has radius', circle.radius);
+					}
+				}
+				
+				// display image with contours
+				cv.imshow(dst_canvas, dst);
+				// clean up tmp images created:
+				binary_img.delete();
+				dst.delete();
+			}
+			
+		</script>
+
+		<p>
+			<button onclick="find_contours('red1', 'out1', 'contours');">Find Red Contours</button>
+			<button onclick="find_contours('green1', 'out1', 'contours');">Find Green Contours</button>
+			<button onclick="find_contours('blue1', 'out1', 'contours');">Find Blue Contours</button>
+		</p>
+		
+		<canvas id="contours" style="border: black solid 1px;"></canvas>
+		
+	</blockquote>
+	
+	<h2>Draw Circle</h2>
+	
+	<blockquote>
+	
+		<p>Draw a circle on the picture:</p>
+		
+		<blockquote>
+			
+			X Location: <input type=text id='x' value='160' size='5'><br />
+			Y Location: <input type=text id='y' value='120' size='5'><br />
+			Radius: <input type=text id='radius' value='10' size='5'>
+
+		</blockquote>
+		
+		<script>
+			// use the text input for x, y, and radius
+			// convert an input image to grayscale
+			// and then draw a yellow circle on it at specified location
+			function draw_circle(src_canvas_id, dst_canvas_id) {
+				// set up dst canvas
+				var dst_canvas = document.getElementById(dst_canvas_id);
+				dst_canvas.setAttribute("width", output_width);
+				dst_canvas.setAttribute("height", output_height);
+
+				// get data from src canvas:
+				var dst = cv.imread(src_canvas_id);
+				// convert src to grayscale and then BACK to RGB (since going to draw on it in color)
+				cv.cvtColor(dst, dst, cv.COLOR_RGBA2GRAY);
+				cv.cvtColor(dst, dst, cv.COLOR_GRAY2RGBA);
+				
+				// get circle info:
+				var x = parseInt(document.getElementById('x').value);
+				var y = parseInt(document.getElementById('y').value);
+				var center = new cv.Point(x, y); // create a point
+				var radius = parseInt(document.getElementById('radius').value);
+				
+				// create yellow color (255, 255, 0, 255)
+				let yellow_color = new cv.Scalar(255, 255, 0, 255);
+				// draw the circle
+				cv.circle(dst, center, radius, yellow_color, 3); // thickness of 3
+				
+				// display image
+				cv.imshow(dst_canvas, dst);
+				// clean up tmp images created:
+				dst.delete();
+			}
+		</script>
+		
+		<p><button onclick="draw_circle('out1', 'out5');">Draw Circle</button></p>
+		
+		<canvas id="out5" style="border: black solid 1px;"></canvas>
+
+	</blockquote>
+	
+</body>	

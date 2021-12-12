@@ -279,9 +279,11 @@ function checkForLaunch(){
             
             myAirtable.setEntryValueStrict('startLaunch', false);
 
+            
             if (curMasterAngle < 0){
                 curMasterAngle = 360 + curMasterAngle;
             }
+            
 
             console.log(curMasterAngle);
 
@@ -290,5 +292,5 @@ function checkForLaunch(){
         else{
             //console.log('nope');
         }
-    }, 2000);
+    }, 500);
 }
