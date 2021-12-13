@@ -96,11 +96,16 @@ function launchBall(){
     myAirtable.setEntryValueStrict('Angle', parseInt(curAngle));
     myAirtable.setEntryValueStrict('Power', parseInt(curPower));
 
+    document.getElementById('launchbutton1').disabled = true;
+
     if (playerNumber == 3){
         //progressBar(6000);
         setTimeout(() => {
             myAirtable.setEntryValueStrict('Turn', 1);
-            document.getElementById('launchbutton1').disabled = false;
+            setTimeout(() => {
+                document.getElementById('launchbutton1').disabled = false;
+            }, 1000);
+            
             
         }, timeDelay);
         
@@ -108,13 +113,21 @@ function launchBall(){
     
     else{
         //progressBar(6000);
-        
         setTimeout(() => {
             myAirtable.setEntryValueStrict('Turn', playerNumber + 1);
-            document.getElementById('launchbutton1').disabled = false; 
+            setTimeout(() => {
+                document.getElementById('launchbutton1').disabled = false;
+            }, 1000);
         }, timeDelay);
         
     }
+
+    document.getElementById('launchbutton1').hidden = true;
+    document.getElementById('launchbutton2').hidden = false;
+
+    setTimeout(() => {
+        checkIfTurn();
+    }, timeDelay + 500);
     
     myAirtable.setEntryValueStrict('startLaunch', true);
 
@@ -132,6 +145,9 @@ function launchBall(){
         console.log('I was closed by the timer')
         }
     })
+
+
+    
 }
 
 //Old Progress Bar Code
@@ -177,20 +193,19 @@ function increment_pb(totalTime){
 //If it's the player's turn, launch is enabled
 //If turn ended, launch capabilities are disabled
 function checkIfTurn(){
-    //var doNotRepeatStallTimer = false;
-    var stallTimer = true;
     checkTurnInterval = setInterval(() => {
         curTurn = myAirtable.getEntryValue('Turn');
 
-        if (curTurn == playerNumber ){
+        if (curTurn == playerNumber){
             if (document.getElementById('launchbutton1').hidden){
-
 
                 document.getElementById('launchbutton1').hidden = false;
                 document.getElementById('launchbutton2').hidden = true;
                 //doNotRepeatStallTimer = false;
 
                 itsYourTurnPopup();
+
+                clearInterval(curTurn);
                 
             }
         }
@@ -198,7 +213,6 @@ function checkIfTurn(){
             if (document.getElementById('launchbutton2').hidden){
                 document.getElementById('launchbutton1').hidden = true;
                 document.getElementById('launchbutton2').hidden = false;
-                stallTimer = true;
             }
         }
 
@@ -211,7 +225,7 @@ function notYourTurn(){
     Swal.fire({
         title: 'Command Not Sent, Please Wait For Your Turn',
         icon: 'error',
-        timer: 6000,
+        timer: 4000,
         timerProgressBar: true,
         willClose: () => {
         clearInterval(timerInterval)

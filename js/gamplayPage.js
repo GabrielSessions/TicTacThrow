@@ -14,7 +14,7 @@ var gameplayPage = `
 
 <div id = "slider1" class = "column1">
     <div class="slidecontainer">
-        <input type="range" min="-45" max="45" value="0" class="slider" id="myRange1"><br><br>
+        <input type="range" min="-15" max="15" value="0" class="slider" id="myRange1"><br><br>
         <h2 id = "angle_display">Angle: 0<span id = "angle_value"></span> deg</h2>
     </div>
 </div>
