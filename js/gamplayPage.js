@@ -36,8 +36,10 @@ var gameplayPage = `
 <br><br>
 <div style = "margin-left: auto; margin-right: auto; text-align:center">
   <button id = "launchbutton1" class = "launchbutton1" type = "button" onclick = "launchBall()" hidden>Launch <img src = "img/rocket_button_img.png" style = "height: 24px; width: auto;"></img></button>
-  <button id = "launchbutton2" class = "launchbutton2" type = "button" onclick = "console.log('error')" disabled>Please Wait For Your Turn <div class="loader"></div></button>
+  <button id = "launchbutton2" class = "launchbutton2" type = "button" onclick = "notYourTurn()">Please Wait For Your Turn <div class="loader"></div></button>
 </div>
+
+
 
 
 `

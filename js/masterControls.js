@@ -292,3 +292,7 @@ function checkForLaunch(){
         }
     }, 2000);
 }
+
+
+
+//JQuery Alert Functions to make Fancy Stuff

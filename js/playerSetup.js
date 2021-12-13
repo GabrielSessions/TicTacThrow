@@ -45,6 +45,7 @@ window.onload = function() {
         document.getElementById('nameForm').remove();
         document.getElementById('loader').removeAttribute ('hidden');
         document.getElementById('subheadLoad').removeAttribute ('hidden');
+        document.getElementById('directions').removeAttribute ('hidden');
 
         //check if user needs to be re-added to the game
         checkIfKicked();
@@ -69,6 +70,7 @@ function loading(){
 
     document.getElementById('loader').removeAttribute ('hidden');
     document.getElementById('subheadLoad').removeAttribute ('hidden');
+    document.getElementById('directions').removeAttribute ('hidden');
 
     addNameToLobby();
 }

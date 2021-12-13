@@ -14,6 +14,7 @@ var numAttempts = 3;
 const secure_password = '2d5a0345254102ae731207917fd24d2e8b7f7ebbfc0f3032776d52548b445cc9';
 //const secure_password = '6ea1408f2859b0700d9bb3f10e535257296cb1cd56f2887c1e3ecdb63c717444';
 var curPassword = '';
+var correctPassword = false; //DOES not allow entry, mainly for if you enter the correct password or not!
 
 console.log(getCookie('password'))
 try{
@@ -137,7 +138,7 @@ function submitPassword(){
 		console.log(inputPass);
 		if (numAttempts > 1){
 			numAttempts --;
-			alert("Incorrect Password. You have " + numAttempts + " attempts remaining.");
+			//alert("Incorrect Password. You have " + numAttempts + " attempts remaining.");
 		}
 		else{
 			var roll = setTimeout(() => {
@@ -152,6 +153,7 @@ function submitPassword(){
 //When login is successful, the SPIKE prime object is initialized
 function successfulLogin(){
 	if (sha256(curPassword) == secure_password){
+		correctPassword = true;
 		var secureJS = document.createElement('script');
 
 		secureJS.onload = function(){

@@ -8,7 +8,16 @@
 
     <link rel = "stylesheet" href = "css/mainPage.css">
 
-   
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
+    <title>Gamemaster Page</title>
 </head>
 
 <body>
@@ -97,5 +106,50 @@
     
     <script src = "js/authenticate.js"></script>
     
+
+    <!-- 
+    Used SweetAlert2 Library to make popups
+    https://sweetalert2.github.io/#examples
+    -->
+    <script>
+
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 4000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+    /*
+    document.querySelector("#passwordSubmit").addEventListener('click', function(){
+        Swal.fire("Our First Alert");
+    });
+    */
+
+    document.querySelector("#passwordSubmit").addEventListener('click', function(){
+        setTimeout(() => {
+            if (correctPassword){
+                toastMixin.fire({
+                    animation: true,
+                    title: 'Log In was Successful'
+                });
+            }
+            else{
+                toastMixin.fire({
+                    title: 'Wrong Password, Please Try Again',
+                    icon: 'error'
+                });
+            }
+        }, 100);
+    
+    });
+    </script>
     
 </body>

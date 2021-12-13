@@ -79,6 +79,8 @@ function gamePage(){
         document.getElementById('arrow').style.setProperty('font-size', curPower * 1.6 + 30);
     }
 
+    
+
 
     checkIfTurn();
     
@@ -87,24 +89,26 @@ function gamePage(){
 
 //Sends launch data to airtable
 function launchBall(){
-    const timeDelay = 5000; //5 Seconds
+
+
+    const timeDelay = 6000; //6 Seconds
 
     myAirtable.setEntryValueStrict('Angle', parseInt(curAngle));
     myAirtable.setEntryValueStrict('Power', parseInt(curPower));
 
     if (playerNumber == 3){
-        progressBar(5000);
-        document.getElementById('launchbutton1').disabled = true;
+        //progressBar(6000);
         setTimeout(() => {
             myAirtable.setEntryValueStrict('Turn', 1);
             document.getElementById('launchbutton1').disabled = false;
+            
         }, timeDelay);
         
     }
     
     else{
-        progressBar(5000);
-        document.getElementById('launchbutton1').disabled = true;
+        //progressBar(6000);
+        
         setTimeout(() => {
             myAirtable.setEntryValueStrict('Turn', playerNumber + 1);
             document.getElementById('launchbutton1').disabled = false; 
@@ -113,9 +117,25 @@ function launchBall(){
     }
     
     myAirtable.setEntryValueStrict('startLaunch', true);
+
+    let timerInterval
+    Swal.fire({
+        title: 'Launch command has been sent',
+        icon: 'success',
+        timer: 6000,
+        timerProgressBar: true,
+        willClose: () => {
+        clearInterval(timerInterval)
+        }
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+        }
+    })
 }
 
-
+//Old Progress Bar Code
+/*
 function progressBar(totalTime){
     var progressBarDiv = document.createElement('div');
     progressBarDiv.setAttribute('id', 'pBarDiv');
@@ -135,8 +155,10 @@ function progressBar(totalTime){
 
 
 }
+*/
 
-//Steadily increases progress in progress bar
+//Steadily increases progress in progress bar (OLD)
+/*
 function increment_pb(totalTime){
     var pbElement = document.getElementById('pBar');
     setTimeout(() => {
@@ -150,6 +172,7 @@ function increment_pb(totalTime){
     }, (totalTime/100));
 
 }
+*/
 
 //If it's the player's turn, launch is enabled
 //If turn ended, launch capabilities are disabled
@@ -161,13 +184,16 @@ function checkIfTurn(){
 
         if (curTurn == playerNumber ){
             if (document.getElementById('launchbutton1').hidden){
+
+
                 document.getElementById('launchbutton1').hidden = false;
                 document.getElementById('launchbutton2').hidden = true;
                 //doNotRepeatStallTimer = false;
+
+                itsYourTurnPopup();
                 
             }
         }
-
         else{
             if (document.getElementById('launchbutton2').hidden){
                 document.getElementById('launchbutton1').hidden = true;
@@ -177,4 +203,52 @@ function checkIfTurn(){
         }
 
     }, 500);
+}
+
+//Displays error if user attempts to launch when not their turn
+function notYourTurn(){
+    let timerInterval;
+    Swal.fire({
+        title: 'Command Not Sent, Please Wait For Your Turn',
+        icon: 'error',
+        timer: 6000,
+        timerProgressBar: true,
+        willClose: () => {
+        clearInterval(timerInterval)
+        }
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer');
+        }
+    })
+}
+
+function itsYourTurnPopup(){
+    
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'info',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+    
+    toastMixin.fire({
+        animation: true,
+        title: "It's your turn!"
+    });
+            
+            
+                
+               
+      
+    
+    
 }
