@@ -14,7 +14,7 @@ Coming Soon!
 3. On the gamemaster page, click the "Add to Game" Button for each player you want to add. Please not there is no feedback when you add a player, but the site will notify you if you have already added a given player to the game. If you mess up the process at any point, you can clear the lobby using the "Reset Lobby" button which will kick all players out of the lobby.
 4. Connect the master page to the SPIKE Prime using the Service Dock at the top of the gamemaster screen.
 5. Once all players have been added, you can start the game by clicking the "Start Game" button.
-6. A random number is picked and that numbered player goes first. Players attempt to shoot balls into the playing area on their turn using the angle and power sliders. **DO NOT click the "Launch" button before the SPIKE Prime has finished running the previous launch sequence!**
+6. A random number is picked and that numbered player goes first. Players attempt to shoot balls into the playing area on their turn using the angle and power sliders. **DO NOT click the "Launch" button before the SPIKE Prime has finished running the previous launch sequence!** Hopefully it should still work if you do it anyways, but this is just a precaution in case it messes things up.
 7. The next player's turn starts 5-6 seconds after the previous launch button was pressed.
 8. If you wish to exit/end a game, click the reset lobby or end game button on the gamemaster page.
 
