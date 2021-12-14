@@ -13,6 +13,7 @@ var checkPlayerNum;
 
 var curAngle = 0;
 var curPower = 50;
+var myTurn = false;
 
 //updates playerNumber if added to a player spot
 function checkIfAddedToGame(){
@@ -98,10 +99,21 @@ function launchBall(){
 
     document.getElementById('launchbutton1').disabled = true;
 
+
+    if (playerNumber == 3){
+        myAirtable.setEntryValueStrict('Turn', 1);
+    }
+
+    else{
+        myAirtable.setEntryValueStrict('Turn', playerNumber + 1);
+    }
+
+
+    /*
     if (playerNumber == 3){
         //progressBar(6000);
         setTimeout(() => {
-            myAirtable.setEntryValueStrict('Turn', 1);
+            
             setTimeout(() => {
                 document.getElementById('launchbutton1').disabled = false;
             }, 1000);
@@ -121,30 +133,31 @@ function launchBall(){
         }, timeDelay);
         
     }
+    */
 
     document.getElementById('launchbutton1').hidden = true;
     document.getElementById('launchbutton2').hidden = false;
 
-    setTimeout(() => {
-        checkIfTurn();
-    }, timeDelay + 500);
     
     myAirtable.setEntryValueStrict('startLaunch', true);
 
-    let timerInterval
-    Swal.fire({
-        title: 'Launch command has been sent',
-        icon: 'success',
-        timer: 6000,
-        timerProgressBar: true,
-        willClose: () => {
-        clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-        console.log('I was closed by the timer')
-        }
-    })
+    setTimeout(() => {
+        let timerInterval
+        Swal.fire({
+            title: 'Launch command has been sent',
+            icon: 'success',
+            timer: 6000,
+            timerProgressBar: true,
+            willClose: () => {
+            clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer')
+            }
+        })
+    }, 400);
+    
 
 
     
@@ -196,27 +209,38 @@ function checkIfTurn(){
     checkTurnInterval = setInterval(() => {
         curTurn = myAirtable.getEntryValue('Turn');
 
-        if (curTurn == playerNumber){
+        if (curTurn == playerNumber && !myTurn){
             if (document.getElementById('launchbutton1').hidden){
 
-                document.getElementById('launchbutton1').hidden = false;
-                document.getElementById('launchbutton2').hidden = true;
-                //doNotRepeatStallTimer = false;
+                myTurn = true;
+                setTimeout(() => {
+                    document.getElementById('launchbutton1').hidden = false;
+                    document.getElementById('launchbutton2').hidden = true;
+                    document.getElementById('launchbutton1').disabled = false;
+                                
+                    itsYourTurnPopup();
+                }, 6000);
+                
 
-                itsYourTurnPopup();
-
-                clearInterval(curTurn);
+                //clearInterval(curTurn);
                 
             }
         }
-        else{
+        else if (curTurn != playerNumber){
             if (document.getElementById('launchbutton2').hidden){
                 document.getElementById('launchbutton1').hidden = true;
                 document.getElementById('launchbutton2').hidden = false;
+                myTurn = false;
             }
         }
 
-    }, 500);
+    }, 1000);
+}
+
+//When the previous player ends their turn, the next player's turn starts in 6 seconds
+function allowLaunch(){
+    
+
 }
 
 //Displays error if user attempts to launch when not their turn
