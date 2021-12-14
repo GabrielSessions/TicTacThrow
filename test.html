@@ -1,41 +1,20 @@
-<!-- Sample Code made for "Dunkin'" project, do not use for Tic Tac Throw-->
+
 
 <html>
-<head>
-  <meta name="google-signin-client_id" content="398102210931-ppul3aegcgvi8e6du2ml74m0c4m1k42t.apps.googleusercontent.com">
-</head>
-<body>
-  <div id="my-signin2"></div>
-  <script>
-    function onSuccess(googleUser) {
-        console.log('hello world!');
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-        console.log('error!');
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }
-  </script>
-
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-</body>
-</html>
+    <body>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <div id="g_id_onload"
+           data-client_id="398102210931-ppul3aegcgvi8e6du2ml74m0c4m1k42t.apps.googleusercontent.com"
+           data-login_uri="https://gabrielsessions.github.io/TicTacThrow/test.html"
+           data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+           data-type="standard"
+           data-size="large"
+           data-theme="outline"
+           data-text="sign_in_with"
+           data-shape="rectangular"
+           data-logo_alignment="left">
+        </div>
+    </body>
+  </html>
