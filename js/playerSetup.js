@@ -109,3 +109,7 @@ function checkIfKicked(){
         }
     }, 1500);
 }
+
+function googleSignIn(){
+    
+}
