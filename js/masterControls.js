@@ -93,8 +93,7 @@ function controlRobot(){
         alert("An invalid angle or speed value was entered, please try again!");
     }
     else{
-        myAirtable.setEntryValueStrict('Angle', angle);
-        myAirtable.setEntryValueStrict('Power', speed);
+        runPythonCode(angle, speed);
     }
     
 
