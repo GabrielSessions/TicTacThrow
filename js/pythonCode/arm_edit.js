@@ -1,29 +1,27 @@
 function runPythonCode(angle, power){
-    var armCode_edit = `# MicroPython for LEGO Hardware (LEGO Education's SPIKE Prime)
-    from spike import PrimeHub, LightMatrix, Button, StatusLight, ForceSensor, MotionSensor, Speaker, ColorSensor, App, DistanceSensor, Motor, MotorPair
-    from spike.control import wait_for_seconds, wait_until, Timer
-
+    var armCode_edit = `
     # Initializing Motors
     hub = PrimeHub()
-    angle = Motor('A')
-    power = Motor('B')
+    angle = Motor('B')
+    power = Motor('F')
 
-    # Values to set (Angle and speed)
-    speedVal = ${power}
-    angleVal = ${angle}
-    
+    # Value to set (Where the gotten angle should go) 
+    # TEMPORARY VALUES V
+    speedVal =  ${power}
+    angleVal =  ${angle}
 
     # Set up
-    angle.run_to_position(0, 'shortest path', 20)
-    power.run_to_position(0, 'shortest path', 20)
+    angle.run_to_position(0, 'shortest path', 50)
+    power.run_to_position(360 - 45, 'shortest path', 100)
 
     # Launch
-    angle.run_to_position(angleVal, 'shortest path', 10)
+    angle.run_to_position((int)((360 + (-angleVal * 56 / 12) ) % 360 ), 'shortest path', 50)
     power.run_to_position(90, 'clockwise', speedVal)
 
     # Reset
-    angle.run_to_position(0, 'shortest path', 20)
-    power.run_to_position(0, 'shortest path', 20)`;
+    angle.run_to_position(0, 'shortest path', 50)
+    power.run_to_position(360 - 45, 'shortest path', 100) 
+   `;
     
     
     console.log(armCode_edit);
