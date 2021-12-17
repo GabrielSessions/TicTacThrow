@@ -2,11 +2,8 @@
 
 EN1 Final Project
 
-Project Description: This variation of three player tic tac toe is aimed to combine the strategy of a larger tic tac toe game and physical elements/uncertainty. The game is played on a 4x4 board with three players and three shapes (O’s, X’s, and Triangles). The first player to get three of their pieces in a row wins (horizontally, vertically, or diagonally). The main way our game differs from “normal” 3 player Tic-Tac-Toe is that players must attempt to toss their pieces using a robot.
+Project Description: This variation of three player tic tac toe is aimed to combine the strategy of a larger tic tac toe game and physical elements/uncertainty. The game is played on a 4x4 board with three players and three types of colored ping pong balls (RED, BLUE, and GREEN). The first player to get three of their pieces in a row wins (horizontally, vertically, or diagonally). The main way our game differs from “normal” 3 player Tic-Tac-Toe is that players must attempt to toss their pieces using a robot.
 The main robot will be an arm attached to a motor that can rotate. The arm will be able to aim and toss. The website allows the player to change the angle and the power of the toss in order to aim for a 4x4 open grid.
-
-Code Documentation:
-Coming Soon!
 
 ## How to Run a Game ##
 1. Open the gamemaster page and enter the correct master password to login. Ask Gabriel if you don't know the password. Gamemaster Page Link: https://gabrielsessions.github.io/TicTacThrow/gamemaster.html
@@ -18,3 +15,4 @@ Coming Soon!
 7. The next player's turn starts 5-6 seconds after the previous launch button was pressed.
 8. If you wish to exit/end a game, click the reset lobby or end game button on the gamemaster page.
 
+## Overview of the Code ##
