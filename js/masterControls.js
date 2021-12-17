@@ -40,7 +40,7 @@ var curMasterAngle = 0;
 var curMasterPower = 50;
 
 window.onload = function(){
-    console.log()
+    //console.log()
     
 }
 
@@ -79,7 +79,7 @@ function bootSPIKE (){
         playersList.push(myAirtable.getEntryValue('Player3'));
 
         checkForLaunch();
-    }, 200);  
+    }, 500);  
 
 }
 
@@ -136,12 +136,6 @@ function updateNameList(oldIDList, newIDList){
     
     for(let i = oldListArray.length; i < newListArray.length; i++){
         let curValue = newListArray[i];
-
-        /*
-        if (typeof(curValue) != Number){
-            break;
-        }
-        */
 
         addNewTableRow(curValue);
     }
@@ -202,7 +196,7 @@ function addToGame (playerID){
         playersList[2] = playerID;
     }
     else if (inGame){
-        alert('This player is already in the game.')
+        alert('This player is already in the game.');
     }
     else{
         alert('There are no open spots left.');
@@ -230,6 +224,7 @@ function resetLobby(){
     myAirtable.setEntryValueStrict('Turn', 0);
     myAirtable.setEntryValueStrict('GameStarted', false);
     myAirtable.setEntryValueStrict('startLaunch', false);
+    myAirtable.setEntryValueStrict('firstTurn', true);
 
     for (let i = 0; i < arrayOfIDs.length; i++){
         try{
@@ -274,6 +269,8 @@ function checkForLaunch(){
         curMasterAngle = myAirtable.getEntryValue('Angle');
         curMasterPower = myAirtable.getEntryValue('Power');
 
+        //console.log(myAirtable.getEntryValue('startLaunch'));
+
         if (myAirtable.getEntryValue('startLaunch')){
             
             myAirtable.setEntryValueStrict('startLaunch', false);
@@ -289,7 +286,7 @@ function checkForLaunch(){
         else{
             //console.log('nope');
         }
-    }, 2000);
+    }, 1000);
 }
 
 

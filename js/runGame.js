@@ -209,28 +209,32 @@ function checkIfTurn(){
     checkTurnInterval = setInterval(() => {
         curTurn = myAirtable.getEntryValue('Turn');
 
-        if (curTurn == playerNumber && !myTurn){
-            if (document.getElementById('launchbutton1').hidden){
+        if (curTurn == playerNumber && !myTurn && myAirtable.getEntryValue('firstTurn')){
+            myAirtable.setEntryValueStrict('firstTurn', false);
+            document.getElementById('launchbutton1').hidden = false;
+            document.getElementById('launchbutton2').hidden = true;
+            document.getElementById('launchbutton1').disabled = false;
+                            
+            itsYourTurnPopup();
+        }
 
-                myTurn = true;
-                setTimeout(() => {
-                    document.getElementById('launchbutton1').hidden = false;
-                    document.getElementById('launchbutton2').hidden = true;
-                    document.getElementById('launchbutton1').disabled = false;
-                                
-                    itsYourTurnPopup();
-                }, 6000);
-                
+        else if (curTurn == playerNumber && !myTurn && document.getElementById('launchbutton1').hidden){
+            myTurn = true;
+            setTimeout(() => {
+                document.getElementById('launchbutton1').hidden = false;
+                document.getElementById('launchbutton2').hidden = true;
+                document.getElementById('launchbutton1').disabled = false;
+                            
+                itsYourTurnPopup();
+            }, 10000); //10 second delay for next turn once previous turn ends
 
-                //clearInterval(curTurn);
-                
-            }
         }
         else if (curTurn != playerNumber){
+            myTurn = false;
             if (document.getElementById('launchbutton2').hidden){
                 document.getElementById('launchbutton1').hidden = true;
                 document.getElementById('launchbutton2').hidden = false;
-                myTurn = false;
+                
             }
         }
 

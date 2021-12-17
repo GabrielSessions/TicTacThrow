@@ -103,13 +103,12 @@ function checkIfKicked(){
         if (myAirtable.getEntryValue('Lobby').indexOf(playerID) == -1){
             setCookie('id', 0);
             setTimeout(() => {
-                window.location.href = "players.html";
+                if (myAirtable.getEntryValue('Lobby').indexOf(playerID) == -1){
+                    window.location.href = "players.html";
+                }
+                
             }, 500);
             
         }
     }, 1500);
-}
-
-function googleSignIn(){
-    
 }
