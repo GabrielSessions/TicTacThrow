@@ -17,5 +17,13 @@ The main robot will be an arm attached to a motor that can rotate. The arm will 
 
 ## Overview of the Code ##
 ### HTML Files ###
-* players.html
-*   Hello
+* [players.html](https://gabrielsessions.github.io/TicTacThrow/players.html "players.html")
+  * Page that should be opened by the remote users. All three players should access this page and all remote content will be loaded on this page using both ***playerSetup.js*** and ***runGame.js***.
+  * The files loads in Airtable, a online database that needs to be functioning in order for the project to work. (Contact me if something it's not working!)
+  * On load, the page serves as a login screen where users input their name and join the game lobby.
+* gamemaster.html
+  * Page that should be used by the local user. Requires a SPIKE Prime and access to Airtable.
+  * Allows the gamemaster to control the game by sending the robot commands, adding players to the lobby, starting a game, resetting the game, and kick players from the game.
+  * Requires a login to access, ask Gabriel if you need the password!
+* termsAndPrivacy.html
+  * Our privacy policy/terms of use page
