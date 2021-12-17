@@ -16,3 +16,6 @@ The main robot will be an arm attached to a motor that can rotate. The arm will 
 8. If you wish to exit/end a game, click the reset lobby or end game button on the gamemaster page.
 
 ## Overview of the Code ##
+### HTML Files ###
+* players.html
+*   Hello
